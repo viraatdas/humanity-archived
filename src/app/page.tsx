@@ -18,7 +18,7 @@ export default async function Home() {
           style={{ color: "var(--color-ink-soft)" }}
         >
           From creation myths to a grandmother&rsquo;s tale, from epics
-          carried across centuries to a story told once over a fire — this
+          carried across centuries to a story told once over a fire, this
           is an open archive of what we&rsquo;ve passed down.{" "}
           <Link href="/about">Read the note &rarr;</Link>
         </p>

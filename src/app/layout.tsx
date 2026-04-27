@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     template: "%s · Humanity Archived",
   },
   description:
-    "A living archive of stories from across time and the world — mythology, folklore, oral history, and the small tales that shape us.",
+    "A living archive of stories from across time and the world: mythology, folklore, oral history, and the small tales that shape us.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   ),

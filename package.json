@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@octokit/rest": "^22.0.1",
     "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.469.0",
@@ -24,6 +25,8 @@
     "remark-gfm": "^4.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.1",
+    "resend": "^6.12.2",
+    "slugify": "^1.6.9",
     "tailwind-merge": "^2.6.0",
     "unified": "^11.0.5",
     "zod": "^3.24.1"
