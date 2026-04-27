@@ -14,14 +14,6 @@ type Props = {
   placeholder?: string;
 };
 
-type ToolbarButtonSpec = {
-  label: string;
-  shortcut?: string;
-  isActive: () => boolean;
-  run: () => void;
-  content: React.ReactNode;
-};
-
 export function Editor({ value, onChange, placeholder }: Props) {
   const [linkOpen, setLinkOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState("");
@@ -38,7 +30,8 @@ export function Editor({ value, onChange, placeholder }: Props) {
         HTMLAttributes: { class: "ha-editor-link" },
       }),
       Placeholder.configure({
-        placeholder: placeholder ?? "Tell the story...",
+        placeholder: placeholder ?? "Begin the story…",
+        emptyEditorClass: "is-editor-empty",
       }),
       Markdown.configure({ html: false, breaks: true, transformPastedText: true }),
     ],
@@ -50,7 +43,7 @@ export function Editor({ value, onChange, placeholder }: Props) {
     },
     editorProps: {
       attributes: {
-        class: "ha-editor focus:outline-none",
+        class: "ha-prose focus:outline-none",
       },
     },
     immediatelyRender: false,
@@ -65,12 +58,9 @@ export function Editor({ value, onChange, placeholder }: Props) {
 
   if (!editor) {
     return (
-      <div className="ha-editor-shell">
-        <div
-          className="ha-editor"
-          style={{ color: "#a8a39a", minHeight: "20rem" }}
-        >
-          {placeholder ?? "Tell the story..."}
+      <div className="ha-prose-shell">
+        <div className="ha-prose" style={{ color: "#b6ad9d" }}>
+          {placeholder ?? "Begin the story…"}
         </div>
       </div>
     );
@@ -90,175 +80,96 @@ export function Editor({ value, onChange, placeholder }: Props) {
     setLinkUrl("");
   }
 
-  const toolbarButtons: ToolbarButtonSpec[] = [
-    {
-      label: "Bold",
-      shortcut: "⌘B",
-      isActive: () => editor.isActive("bold"),
-      run: () => editor.chain().focus().toggleBold().run(),
-      content: <strong>B</strong>,
-    },
-    {
-      label: "Italic",
-      shortcut: "⌘I",
-      isActive: () => editor.isActive("italic"),
-      run: () => editor.chain().focus().toggleItalic().run(),
-      content: <em>I</em>,
-    },
-    {
-      label: "Heading",
-      isActive: () => editor.isActive("heading", { level: 2 }),
-      run: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
-      content: <span style={{ fontWeight: 600 }}>H</span>,
-    },
-    {
-      label: "Quote",
-      isActive: () => editor.isActive("blockquote"),
-      run: () => editor.chain().focus().toggleBlockquote().run(),
-      content: <span style={{ fontSize: 16 }}>&ldquo;</span>,
-    },
-    {
-      label: "Bullet list",
-      isActive: () => editor.isActive("bulletList"),
-      run: () => editor.chain().focus().toggleBulletList().run(),
-      content: <span style={{ fontSize: 16 }}>•</span>,
-    },
-    {
-      label: "Numbered list",
-      isActive: () => editor.isActive("orderedList"),
-      run: () => editor.chain().focus().toggleOrderedList().run(),
-      content: <span style={{ fontSize: 12, fontWeight: 500 }}>1.</span>,
-    },
-    {
-      label: "Link",
-      isActive: () => editor.isActive("link") || linkOpen,
-      run: () => {
-        const prev = editor.getAttributes("link").href ?? "";
-        setLinkUrl(prev);
-        setLinkOpen((v) => !v);
-      },
-      content: <span style={{ fontSize: 14 }}>↗</span>,
-    },
-  ];
-
   return (
-    <div className="ha-editor-shell">
-      <div className="ha-toolbar" role="toolbar" aria-label="Formatting">
-        {toolbarButtons.map((b, i) => (
-          <button
-            key={i}
-            type="button"
-            aria-label={b.label}
-            title={b.shortcut ? `${b.label} (${b.shortcut})` : b.label}
-            onClick={b.run}
-            className={`ha-toolbar-btn${b.isActive() ? " ha-toolbar-btn-active" : ""}`}
-          >
-            {b.content}
-          </button>
-        ))}
-      </div>
-      {linkOpen && (
-        <div className="ha-toolbar-link">
-          <input
-            type="text"
-            value={linkUrl}
-            autoFocus
-            placeholder="https://"
-            onChange={(e) => setLinkUrl(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                applyLink();
-              } else if (e.key === "Escape") {
-                setLinkOpen(false);
-                setLinkUrl("");
-              }
-            }}
-          />
-          <button type="button" onClick={applyLink}>
-            Apply
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setLinkOpen(false);
-              setLinkUrl("");
-            }}
-            className="ha-toolbar-link-cancel"
-          >
-            Cancel
-          </button>
-        </div>
-      )}
+    <div className="ha-prose-shell">
       <BubbleMenu editor={editor} options={{ placement: "top" }}>
         <div className="ha-bubble">
-          <BubbleButton
-            active={editor.isActive("bold")}
-            onClick={() => editor.chain().focus().toggleBold().run()}
-            label="Bold"
-          >
-            <strong>B</strong>
-          </BubbleButton>
-          <BubbleButton
-            active={editor.isActive("italic")}
-            onClick={() => editor.chain().focus().toggleItalic().run()}
-            label="Italic"
-          >
-            <em>I</em>
-          </BubbleButton>
-          <BubbleButton
-            active={editor.isActive("heading", { level: 2 })}
-            onClick={() =>
-              editor.chain().focus().toggleHeading({ level: 2 }).run()
-            }
-            label="Heading"
-          >
-            H
-          </BubbleButton>
-          <BubbleButton
-            active={editor.isActive("blockquote")}
-            onClick={() => editor.chain().focus().toggleBlockquote().run()}
-            label="Quote"
-          >
-            &ldquo;
-          </BubbleButton>
-          <BubbleButton
-            active={editor.isActive("link") || linkOpen}
-            onClick={() => {
-              const prev = editor.getAttributes("link").href ?? "";
-              setLinkUrl(prev);
-              setLinkOpen((v) => !v);
-            }}
-            label="Link"
-          >
-            ↗
-          </BubbleButton>
-        </div>
-        {linkOpen && (
-          <div className="ha-bubble-link">
-            <input
-              type="text"
-              value={linkUrl}
-              autoFocus
-              placeholder="https://"
-              onChange={(e) => setLinkUrl(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  applyLink();
-                } else if (e.key === "Escape") {
-                  setLinkOpen(false);
+          {!linkOpen ? (
+            <>
+              <BubbleButton
+                active={editor.isActive("bold")}
+                onClick={() => editor.chain().focus().toggleBold().run()}
+                label="Bold"
+              >
+                <strong>B</strong>
+              </BubbleButton>
+              <BubbleButton
+                active={editor.isActive("italic")}
+                onClick={() => editor.chain().focus().toggleItalic().run()}
+                label="Italic"
+              >
+                <em>I</em>
+              </BubbleButton>
+              <span className="ha-bubble-sep" aria-hidden />
+              <BubbleButton
+                active={editor.isActive("heading", { level: 2 })}
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 2 }).run()
                 }
-              }}
-            />
-            <button type="button" onClick={applyLink}>
-              Apply
-            </button>
-          </div>
-        )}
+                label="Heading"
+              >
+                H
+              </BubbleButton>
+              <BubbleButton
+                active={editor.isActive("blockquote")}
+                onClick={() => editor.chain().focus().toggleBlockquote().run()}
+                label="Quote"
+              >
+                &ldquo;
+              </BubbleButton>
+              <BubbleButton
+                active={editor.isActive("bulletList")}
+                onClick={() => editor.chain().focus().toggleBulletList().run()}
+                label="Bullet list"
+              >
+                •
+              </BubbleButton>
+              <span className="ha-bubble-sep" aria-hidden />
+              <BubbleButton
+                active={editor.isActive("link")}
+                onClick={() => {
+                  const prev = editor.getAttributes("link").href ?? "";
+                  setLinkUrl(prev);
+                  setLinkOpen(true);
+                }}
+                label="Link"
+              >
+                <LinkIcon />
+              </BubbleButton>
+            </>
+          ) : (
+            <div className="ha-bubble-link">
+              <input
+                type="text"
+                value={linkUrl}
+                autoFocus
+                placeholder="paste a link"
+                onChange={(e) => setLinkUrl(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    applyLink();
+                  } else if (e.key === "Escape") {
+                    setLinkOpen(false);
+                    setLinkUrl("");
+                  }
+                }}
+              />
+              <button type="button" onClick={applyLink}>
+                Apply
+              </button>
+            </div>
+          )}
+        </div>
       </BubbleMenu>
 
       <EditorContent editor={editor} />
+
+      <p className="ha-prose-hint">
+        Select any text to format it. Markdown shortcuts work too —
+        <code>**bold**</code>, <code>*italic*</code>,{" "}
+        <code>## heading</code>, <code>&gt; quote</code>.
+      </p>
     </div>
   );
 }
@@ -283,5 +194,24 @@ function BubbleButton({
     >
       {children}
     </button>
+  );
+}
+
+function LinkIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.72" />
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+    </svg>
   );
 }

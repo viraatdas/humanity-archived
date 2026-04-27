@@ -181,132 +181,101 @@ a:hover {
   color: var(--color-paper);
 }
 
-/* ---- TipTap editor ---- */
-.ha-editor-shell {
-  border: 1px solid var(--color-rule);
-  border-radius: 10px;
-  background: #ffffff;
-  overflow: hidden;
+/* ---- Substack-style prose editor ---- */
+.ha-prose-shell {
+  position: relative;
 }
-.ha-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px;
-  padding: 6px 8px;
-  border-bottom: 1px solid var(--color-rule);
-  background: #faf9f6;
-}
-.ha-toolbar-btn {
-  width: 34px;
-  height: 34px;
-  border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  color: var(--color-ink);
+.ha-prose {
   font-family: var(--font-serif);
-  font-size: 1rem;
-  cursor: pointer;
-  border: none;
-}
-.ha-toolbar-btn:hover { background: rgba(0,0,0,0.05); }
-.ha-toolbar-btn-active {
-  background: var(--color-ink);
-  color: var(--color-paper);
-}
-.ha-toolbar-btn-active:hover { background: var(--color-ink); opacity: 0.92; }
-.ha-toolbar-link {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  padding: 8px 10px;
-  border-bottom: 1px solid var(--color-rule);
-  background: #faf9f6;
-}
-.ha-toolbar-link input {
-  flex: 1;
-  padding: 0.45rem 0.6rem;
-  border: 1px solid var(--color-rule);
-  border-radius: 6px;
-  background: #fff;
-  font-family: var(--font-serif);
-  font-size: 0.9rem;
-  outline: none;
-  min-height: 36px;
-}
-.ha-toolbar-link input:focus { border-color: var(--color-ink); }
-.ha-toolbar-link button {
-  padding: 0.45rem 0.7rem;
-  border-radius: 6px;
-  border: none;
-  background: var(--color-ink);
-  color: var(--color-paper);
-  font-family: var(--font-serif);
-  font-size: 0.85rem;
-  cursor: pointer;
-  min-height: 36px;
-}
-.ha-toolbar-link-cancel {
-  background: transparent !important;
-  color: var(--color-ink-soft) !important;
-}
-.ha-editor-shell > .tiptap, .ha-editor-shell .ha-editor {
-  padding: 1.25rem 1.5rem;
-}
-.ha-editor {
-  font-family: var(--font-serif);
-  font-size: 1.18rem;
+  font-size: 1.3125rem;
   line-height: 1.65;
   color: var(--color-ink);
   min-height: 22rem;
+  letter-spacing: -0.003em;
+  outline: none;
 }
-.ha-editor p { margin: 0.6em 0; }
-.ha-editor h2 {
-  font-size: 1.6rem;
+.ha-prose p { margin: 0.85em 0; }
+.ha-prose p:first-child { margin-top: 0; }
+.ha-prose h2 {
+  font-size: 1.7rem;
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  margin-top: 1.6em;
+  margin-bottom: 0.2em;
+  color: var(--color-ink);
+}
+.ha-prose h3 {
+  font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: -0.01em;
   margin-top: 1.4em;
   margin-bottom: 0.2em;
+  color: var(--color-ink);
 }
-.ha-editor h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-top: 1.2em;
-  margin-bottom: 0.2em;
-}
-.ha-editor blockquote {
-  border-left: 2px solid var(--color-rule);
-  padding-left: 1rem;
+.ha-prose blockquote {
+  border-left: 2px solid #d6cfbf;
+  padding-left: 1.1rem;
   color: var(--color-ink-soft);
   font-style: italic;
-  margin: 1em 0;
+  margin: 1.1em 0;
 }
-.ha-editor ul, .ha-editor ol { padding-left: 1.5rem; margin: 0.6em 0; }
-.ha-editor a.ha-editor-link {
-  color: var(--color-accent);
+.ha-prose ul, .ha-prose ol {
+  padding-left: 1.4rem;
+  margin: 0.85em 0;
+}
+.ha-prose ul li, .ha-prose ol li { margin: 0.2em 0; }
+.ha-prose a.ha-editor-link {
+  color: var(--color-ink);
   text-decoration: underline;
-  text-decoration-color: rgba(138, 75, 42, 0.4);
+  text-decoration-color: #c9b89c;
   text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }
-.ha-editor strong { font-weight: 600; }
-.ha-editor p.is-editor-empty:first-child::before {
+.ha-prose a.ha-editor-link:hover {
+  text-decoration-color: var(--color-accent);
+}
+.ha-prose strong { font-weight: 600; }
+.ha-prose em { font-style: italic; }
+.ha-prose p.is-editor-empty:first-child::before {
   content: attr(data-placeholder);
-  color: #b6ad9d;
+  color: #c2bbac;
+  font-style: italic;
   pointer-events: none;
   float: left;
   height: 0;
 }
+.ha-prose ::selection { background: #f1e7d0; }
+.ha-prose-hint {
+  margin-top: 1rem;
+  font-size: 0.78rem;
+  color: var(--color-ink-soft);
+  letter-spacing: 0.01em;
+  font-family: var(--font-serif);
+  font-style: italic;
+}
+.ha-prose-hint code {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 0.74rem;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 0.05rem 0.3rem;
+  border-radius: 3px;
+  margin: 0 0.15rem;
+  color: var(--color-ink);
+}
 
 /* ---- Bubble menu ---- */
 .ha-bubble {
-  display: flex;
-  gap: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
   padding: 4px;
   background: var(--color-ink);
   color: var(--color-paper);
-  border-radius: 8px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 12px 28px rgba(0, 0, 0, 0.22);
 }
 .ha-bubble-btn {
   width: 32px;
@@ -314,38 +283,53 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 5px;
+  border-radius: 999px;
+  border: none;
   color: var(--color-paper);
   font-family: var(--font-serif);
   font-size: 1rem;
   background: transparent;
   cursor: pointer;
+  transition: background 100ms ease;
 }
-.ha-bubble-btn:hover { background: rgba(255, 255, 255, 0.1); }
-.ha-bubble-btn-active { background: rgba(255, 255, 255, 0.18); }
+.ha-bubble-btn:hover { background: rgba(255, 255, 255, 0.12); }
+.ha-bubble-btn-active {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+.ha-bubble-btn-active:hover {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  opacity: 0.9;
+}
+.ha-bubble-sep {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.16);
+  margin: 0 4px;
+}
 .ha-bubble-link {
-  margin-top: 4px;
   display: flex;
-  gap: 4px;
-  background: var(--color-ink);
-  border-radius: 8px;
-  padding: 4px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 4px 0 12px;
+  min-width: 280px;
 }
 .ha-bubble-link input {
   flex: 1;
-  background: rgba(255, 255, 255, 0.08);
+  background: transparent;
   border: none;
   outline: none;
-  padding: 0.4rem 0.6rem;
-  border-radius: 5px;
+  padding: 0.4rem 0;
   color: var(--color-paper);
   font-family: var(--font-serif);
-  font-size: 0.9rem;
-  min-width: 220px;
+  font-size: 0.95rem;
 }
+.ha-bubble-link input::placeholder { color: rgba(251, 248, 243, 0.5); }
 .ha-bubble-link button {
-  padding: 0.3rem 0.7rem;
-  border-radius: 5px;
+  padding: 0.32rem 0.85rem;
+  border: none;
+  border-radius: 999px;
   background: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-serif);
@@ -363,12 +347,10 @@ body.submit-page .ha-input {
 
 /* ---- Mobile tweaks ---- */
 @media (max-width: 640px) {
-  .ha-editor-shell {
-    padding: 1rem 1.1rem;
-  }
-  .ha-editor {
-    font-size: 1.1rem;
+  .ha-prose {
+    font-size: 1.18rem;
     min-height: 18rem;
   }
-  .ha-bubble-link input { min-width: 160px; }
+  .ha-prose h2 { font-size: 1.45rem; }
+  .ha-bubble-link { min-width: 220px; }
 }
