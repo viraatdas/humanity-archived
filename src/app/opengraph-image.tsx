@@ -35,7 +35,7 @@ export default async function OpenGraphImage() {
             fontFamily: "CrimsonText",
           }}
         >
-          <ConstellationMark size={56} />
+          <ObeliskMark size={56} />
           Humanity Archived
         </div>
 
@@ -99,56 +99,20 @@ export default async function OpenGraphImage() {
   );
 }
 
-function ConstellationMark({ size }: { size: number }) {
-  const center = size * 0.16;
-  const corner = size * 0.13;
+function ObeliskMark({ size }: { size: number }) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="${size}" height="${size}">
+    <rect width="32" height="32" rx="6" fill="#1a1714"/>
+    <path d="M16 4 L20 11 L20 24 L22 24 L22 27 L10 27 L10 24 L12 24 L12 11 Z" fill="#fbf8f3"/>
+  </svg>`;
+  const dataUrl = `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
+  // eslint-disable-next-line @next/next/no-img-element
   return (
-    <div
-      style={{
-        width: size,
-        height: size,
-        borderRadius: size * 0.22,
-        background: "#1a1714",
-        position: "relative",
-        display: "flex",
-      }}
-    >
-      {/* top-right */}
-      <div
-        style={{
-          position: "absolute",
-          top: size * 0.24,
-          left: size * 0.7 - corner / 2,
-          width: corner,
-          height: corner,
-          borderRadius: corner,
-          background: "#fbf8f3",
-        }}
-      />
-      {/* center */}
-      <div
-        style={{
-          position: "absolute",
-          top: size * 0.5 - center / 2,
-          left: size * 0.5 - center / 2,
-          width: center,
-          height: center,
-          borderRadius: center,
-          background: "#fbf8f3",
-        }}
-      />
-      {/* bottom-left */}
-      <div
-        style={{
-          position: "absolute",
-          top: size * 0.76 - corner,
-          left: size * 0.3 - corner / 2,
-          width: corner,
-          height: corner,
-          borderRadius: corner,
-          background: "#fbf8f3",
-        }}
-      />
-    </div>
+    <img
+      src={dataUrl}
+      width={size}
+      height={size}
+      alt=""
+      style={{ display: "block" }}
+    />
   );
 }

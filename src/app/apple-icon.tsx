@@ -3,11 +3,9 @@ import { ImageResponse } from "next/og";
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-const svgMarkup = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
-  <rect width="180" height="180" rx="36" fill="#1a1714"/>
-  <circle cx="126" cy="56" r="11" fill="#fbf8f3"/>
-  <circle cx="90" cy="92" r="14" fill="#fbf8f3"/>
-  <circle cx="54" cy="128" r="11" fill="#fbf8f3"/>
+const svgMarkup = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="180" height="180">
+  <rect width="32" height="32" rx="6" fill="#1a1714"/>
+  <path d="M16 4 L20 11 L20 24 L22 24 L22 27 L10 27 L10 24 L12 24 L12 11 Z" fill="#fbf8f3"/>
 </svg>`;
 
 export default function AppleIcon() {
