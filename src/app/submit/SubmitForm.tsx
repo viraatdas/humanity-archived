@@ -35,39 +35,81 @@ const LANGUAGE_OPTIONS: ComboboxOption[] = LANGUAGES.map((l) => ({
 }));
 
 type Era = "BCE" | "CE";
+type Step = "write" | "details";
 
 export function SubmitForm() {
   const [pending, start] = useTransition();
   const [result, setResult] = useState<SubmitResult | null>(null);
+  const [step, setStep] = useState<Step>("write");
+  const [stepError, setStepError] = useState<string | null>(null);
 
-  const [region, setRegion] = useState("");
-  const [genre, setGenre] = useState("");
-  const [language, setLanguage] = useState("en");
-  const [year, setYear] = useState("");
-  const [era, setEra] = useState<Era>("CE");
+  // Step 1: write
+  const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  // Step 2: details
+  const [email, setEmail] = useState("");
+  const [timePeriod, setTimePeriod] = useState("");
+  const [year, setYear] = useState("");
+  const [era, setEra] = useState<Era>("CE");
+  const [region, setRegion] = useState("");
+  const [genre, setGenre] = useState("");
+  const [author, setAuthor] = useState("");
+  const [authorVisible, setAuthorVisible] = useState(true);
+  const [language, setLanguage] = useState("en");
+
+  function continueToDetails() {
+    setStepError(null);
+    if (title.trim().length === 0) {
+      setStepError("Please give the story a title.");
+      return;
+    }
+    if (body.trim().length < 20) {
+      setStepError("The story is a bit short. Tell us a few more sentences.");
+      return;
+    }
+    setStep("details");
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
+  function backToWriting() {
+    setStepError(null);
+    setStep("write");
+  }
+
+  async function onFinalSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    const fd = new FormData();
+    fd.set("title", title);
     fd.set("body", body);
-    fd.set("region", region);
-    fd.set("genre", genre);
-    fd.set("language", language);
+    fd.set("email", email);
+    fd.set("timePeriod", timePeriod);
     fd.set("year", year);
     fd.set("era", era);
+    fd.set("region", region);
+    fd.set("genre", genre);
+    fd.set("author", author);
+    if (authorVisible) fd.set("authorVisible", "on");
+    fd.set("language", language);
+
     setResult(null);
     start(async () => {
       const r = await submitStory(fd);
       setResult(r);
       if (r.ok) {
-        (e.target as HTMLFormElement).reset();
-        setRegion("");
-        setGenre("");
-        setLanguage("en");
+        setTitle("");
+        setBody("");
+        setEmail("");
+        setTimePeriod("");
         setYear("");
         setEra("CE");
-        setBody("");
+        setRegion("");
+        setGenre("");
+        setAuthor("");
+        setAuthorVisible(true);
+        setLanguage("en");
       }
     });
   }
@@ -84,25 +126,83 @@ export function SubmitForm() {
     );
   }
 
+  if (step === "write") {
+    return (
+      <div className="mx-auto max-w-2xl pt-2 pb-12">
+        <div className="flex items-center justify-between text-xs uppercase tracking-widest" style={{ color: "var(--color-ink-soft)" }}>
+          <span>Contribute</span>
+          <span>1 of 2 · write</span>
+        </div>
+
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Title"
+          maxLength={200}
+          className="ha-title-input mt-6 w-full"
+          autoFocus
+        />
+
+        <div className="mt-6">
+          <Editor
+            value={body}
+            onChange={setBody}
+            placeholder="Begin the story…"
+          />
+        </div>
+
+        {stepError && (
+          <p
+            className="mt-6 rounded border px-4 py-3 text-sm"
+            style={{
+              borderColor: "var(--color-accent)",
+              color: "var(--color-accent)",
+            }}
+          >
+            {stepError}
+          </p>
+        )}
+
+        <div className="mt-10 flex flex-col-reverse items-start gap-3 border-t pt-6 sm:flex-row sm:items-center sm:justify-between" style={{ borderColor: "var(--color-rule)" }}>
+          <span className="text-xs" style={{ color: "var(--color-ink-soft)" }}>
+            Submissions are reviewed before they join the archive.
+          </span>
+          <button
+            type="button"
+            onClick={continueToDetails}
+            className="w-full rounded-full px-6 py-3 text-sm sm:w-auto"
+            style={{
+              background: "var(--color-ink)",
+              color: "var(--color-paper)",
+              minHeight: 48,
+            }}
+          >
+            Continue &rarr;
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // step === "details"
   return (
-    <form onSubmit={onSubmit} className="mx-auto max-w-2xl space-y-7 pt-2 pb-12">
+    <form onSubmit={onFinalSubmit} className="mx-auto max-w-2xl space-y-7 pt-2 pb-12">
+      <div className="flex items-center justify-between text-xs uppercase tracking-widest" style={{ color: "var(--color-ink-soft)" }}>
+        <span>Contribute</span>
+        <span>2 of 2 · details</span>
+      </div>
+
       <header className="pb-2">
-        <p
-          className="text-xs uppercase tracking-widest"
-          style={{ color: "var(--color-ink-soft)" }}
-        >
-          Contribute
-        </p>
-        <h1 className="mt-3 font-serif text-3xl leading-tight tracking-tight sm:text-4xl md:text-5xl">
-          Share a story.
+        <h1 className="mt-3 font-serif text-3xl leading-tight tracking-tight sm:text-4xl">
+          Tell us about &ldquo;{title || "this story"}.&rdquo;
         </h1>
         <p
-          className="mt-4 text-base"
+          className="mt-3 text-base"
           style={{ color: "var(--color-ink-soft)" }}
         >
-          Anything from a creation myth to a tale your grandmother told you.
-          Every submission is reviewed before it joins the archive.
-          Submissions are licensed under CC BY-SA 4.0.
+          A few notes so we can place it in time, geography, and tradition.
+          Every submission is licensed under CC BY-SA 4.0.
         </p>
       </header>
 
@@ -113,23 +213,12 @@ export function SubmitForm() {
       >
         <input
           id="email"
-          name="email"
           type="email"
           required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="ha-input"
           placeholder="you@example.com"
-        />
-      </Field>
-
-      <Field label="Title" htmlFor="title">
-        <input
-          id="title"
-          name="title"
-          type="text"
-          required
-          maxLength={200}
-          className="ha-input"
-          placeholder="The story of..."
         />
       </Field>
 
@@ -140,10 +229,11 @@ export function SubmitForm() {
       >
         <input
           id="timePeriod"
-          name="timePeriod"
           type="text"
           required
           maxLength={100}
+          value={timePeriod}
+          onChange={(e) => setTimePeriod(e.target.value)}
           className="ha-input"
           placeholder="medieval, ancestral, 1920s..."
         />
@@ -222,9 +312,10 @@ export function SubmitForm() {
         >
           <input
             id="author"
-            name="author"
             type="text"
             maxLength={120}
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
             className="ha-input"
           />
         </Field>
@@ -249,8 +340,8 @@ export function SubmitForm() {
       <label className="flex items-start gap-3 text-sm">
         <input
           type="checkbox"
-          name="authorVisible"
-          defaultChecked
+          checked={authorVisible}
+          onChange={(e) => setAuthorVisible(e.target.checked)}
           className="mt-1 h-4 w-4"
         />
         <span>
@@ -258,18 +349,6 @@ export function SubmitForm() {
           anonymous on the published page.
         </span>
       </label>
-
-      <Field
-        label="The story"
-        htmlFor="body"
-        hint="Write naturally. Select text to format. Press Enter for a new paragraph."
-      >
-        <Editor
-          value={body}
-          onChange={setBody}
-          placeholder="Tell the story..."
-        />
-      </Field>
 
       {result && !result.ok && (
         <p
@@ -284,16 +363,21 @@ export function SubmitForm() {
       )}
 
       <div
-        className="flex flex-col-reverse items-start gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between"
+        className="flex flex-col-reverse items-stretch gap-3 border-t pt-6 sm:flex-row sm:items-center sm:justify-between"
         style={{ borderColor: "var(--color-rule)" }}
       >
-        <span className="text-xs" style={{ color: "var(--color-ink-soft)" }}>
-          Licensed under CC BY-SA 4.0
-        </span>
+        <button
+          type="button"
+          onClick={backToWriting}
+          className="text-sm"
+          style={{ color: "var(--color-ink-soft)", textDecoration: "underline", textDecorationColor: "var(--color-rule)", textUnderlineOffset: 4, background: "transparent", border: "none", padding: "0.5rem 0", textAlign: "left" }}
+        >
+          &larr; Back to writing
+        </button>
         <button
           type="submit"
           disabled={pending}
-          className="w-full rounded-full px-6 py-3 text-sm sm:w-auto"
+          className="rounded-full px-6 py-3 text-sm"
           style={{
             background: "var(--color-ink)",
             color: "var(--color-paper)",

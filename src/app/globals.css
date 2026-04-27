@@ -201,6 +201,28 @@ body.submit-page .ha-era-toggle {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
+/* ---- Frameless title input (step 1) ---- */
+.ha-title-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  line-height: 1.15;
+  padding: 0;
+}
+.ha-title-input::placeholder {
+  color: #c2bbac;
+  font-weight: 400;
+  font-style: italic;
+}
+@media (min-width: 640px) {
+  .ha-title-input { font-size: 2.75rem; }
+}
+
 /* ---- Substack-style prose editor ---- */
 .ha-prose-shell {
   position: relative;
