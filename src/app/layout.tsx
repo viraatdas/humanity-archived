@@ -2,16 +2,45 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://humanity-archived.vercel.app";
+const description =
+  "A living archive of stories from across time and the world: mythology, folklore, oral history, and the small tales that shape us.";
+
 export const metadata: Metadata = {
   title: {
     default: "Humanity Archived",
     template: "%s · Humanity Archived",
   },
-  description:
-    "A living archive of stories from across time and the world: mythology, folklore, oral history, and the small tales that shape us.",
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
-  ),
+  description,
+  metadataBase: new URL(siteUrl),
+  applicationName: "Humanity Archived",
+  keywords: [
+    "stories",
+    "archive",
+    "mythology",
+    "folklore",
+    "oral history",
+    "epic",
+    "preservation",
+  ],
+  openGraph: {
+    type: "website",
+    siteName: "Humanity Archived",
+    title: "Humanity Archived",
+    description,
+    url: siteUrl,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Humanity Archived",
+    description,
+  },
+  robots: { index: true, follow: true },
+};
+
+export const viewport = {
+  themeColor: "#fbf8f3",
 };
 
 export default function RootLayout({
