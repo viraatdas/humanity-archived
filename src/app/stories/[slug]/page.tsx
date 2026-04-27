@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getStory, renderMarkdown } from "@/lib/stories";
+import { GENRE_COLORS, GENRE_LABELS } from "@/lib/genre-colors";
 
 export async function generateMetadata({
   params,
@@ -37,16 +38,21 @@ export default async function StoryPage({
 
       <header className="pt-6 pb-8">
         <div
-          className="flex flex-wrap gap-x-3 gap-y-1 text-xs uppercase tracking-widest"
+          className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs uppercase tracking-widest"
           style={{ color: "var(--color-ink-soft)" }}
         >
+          <span
+            aria-hidden
+            className="inline-block h-2 w-2 rounded-full"
+            style={{ background: GENRE_COLORS[story.genre] }}
+          />
           <span>{story.timePeriod}</span>
           <span>·</span>
           <span>{story.region.name}</span>
           <span>·</span>
-          <span>{story.genre}</span>
+          <span>{GENRE_LABELS[story.genre]}</span>
         </div>
-        <h1 className="mt-4 font-serif text-4xl leading-tight tracking-tight md:text-5xl">
+        <h1 className="mt-4 font-serif text-3xl leading-tight tracking-tight sm:text-4xl md:text-5xl">
           {story.title}
         </h1>
         {story.author && story.authorVisible && (

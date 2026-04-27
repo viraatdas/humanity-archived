@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { listStories } from "@/lib/stories";
-import { GENRES, type Genre } from "@/lib/schema";
+import { GENRES } from "@/lib/schema";
+import { GENRE_COLORS, GENRE_LABELS } from "@/lib/genre-colors";
 
 export default async function Home() {
   const stories = await listStories();
@@ -47,16 +48,19 @@ export default async function Home() {
                   style={{ textDecoration: "none" }}
                 >
                   <article className="flex flex-col gap-1">
-                    <h3 className="font-serif text-lg">{s.title}</h3>
+                    <h3 className="font-serif text-lg flex items-center gap-2.5">
+                      <GenreDot genre={s.genre} />
+                      <span>{s.title}</span>
+                    </h3>
                     <div
-                      className="flex flex-wrap gap-x-3 gap-y-1 text-xs"
+                      className="flex flex-wrap gap-x-3 gap-y-1 text-xs pl-[18px]"
                       style={{ color: "var(--color-ink-soft)" }}
                     >
                       <span>{s.timePeriod}</span>
                       <span>·</span>
                       <span>{s.region.name}</span>
                       <span>·</span>
-                      <span className="capitalize">{labelFor(s.genre)}</span>
+                      <span>{GENRE_LABELS[s.genre]}</span>
                       {s.author && (
                         <>
                           <span>·</span>
@@ -79,14 +83,15 @@ export default async function Home() {
             <li key={g}>
               <Link
                 href={`/?genre=${g}`}
-                className="rounded-full border px-3 py-1"
+                className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5"
                 style={{
                   borderColor: "var(--color-rule)",
                   textDecoration: "none",
                   color: "var(--color-ink-soft)",
                 }}
               >
-                {labelFor(g)}
+                <GenreDot genre={g} />
+                {GENRE_LABELS[g]}
               </Link>
             </li>
           ))}
@@ -96,15 +101,12 @@ export default async function Home() {
   );
 }
 
-function labelFor(g: Genre): string {
-  const map: Record<Genre, string> = {
-    mythology: "Mythology",
-    folklore: "Folklore",
-    "oral-history": "Oral history",
-    religious: "Religious narrative",
-    historical: "Historical account",
-    personal: "Personal & family history",
-    epic: "Epic",
-  };
-  return map[g];
+function GenreDot({ genre }: { genre: keyof typeof GENRE_COLORS }) {
+  return (
+    <span
+      aria-hidden
+      className="inline-block h-2 w-2 shrink-0 rounded-full"
+      style={{ background: GENRE_COLORS[genre] }}
+    />
+  );
 }
