@@ -35,23 +35,7 @@ export default async function OpenGraphImage() {
             fontFamily: "CrimsonText",
           }}
         >
-          <div
-            style={{
-              width: 52,
-              height: 52,
-              borderRadius: 12,
-              background: "#1a1714",
-              color: "#fbf8f3",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 36,
-              fontWeight: 700,
-              letterSpacing: -2,
-            }}
-          >
-            h
-          </div>
+          <ConstellationMark size={56} />
           Humanity Archived
         </div>
 
@@ -112,5 +96,55 @@ export default async function OpenGraphImage() {
         { name: "CrimsonText", data: semibold, style: "normal", weight: 600 },
       ],
     },
+  );
+}
+
+function ConstellationMark({ size }: { size: number }) {
+  const dot = size * 0.16;
+  return (
+    <div
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size * 0.22,
+        background: "#1a1714",
+        position: "relative",
+        display: "flex",
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: size * 0.22,
+          left: size * 0.5 - dot / 2,
+          width: dot,
+          height: dot,
+          borderRadius: dot,
+          background: "#fbf8f3",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          top: size * 0.6,
+          left: size * 0.22,
+          width: dot,
+          height: dot,
+          borderRadius: dot,
+          background: "#fbf8f3",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          top: size * 0.6,
+          left: size * 0.78 - dot,
+          width: dot,
+          height: dot,
+          borderRadius: dot,
+          background: "#fbf8f3",
+        }}
+      />
+    </div>
   );
 }

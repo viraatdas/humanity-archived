@@ -17,6 +17,7 @@ type Props = {
   allowCustom?: boolean;
   placeholder?: string;
   required?: boolean;
+  customHeader?: string;
 };
 
 export function Combobox({
@@ -28,6 +29,7 @@ export function Combobox({
   allowCustom,
   placeholder,
   required,
+  customHeader,
 }: Props) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -142,6 +144,9 @@ export function Combobox({
 
       {open && (filtered.length > 0 || showCustomRow) && (
         <div className="ha-combobox-list">
+          {customHeader && allowCustom && (
+            <div className="ha-combobox-header">{customHeader}</div>
+          )}
           {filtered.map((o, i) => (
             <div
               key={o.value}

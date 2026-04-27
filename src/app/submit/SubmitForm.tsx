@@ -187,7 +187,7 @@ export function SubmitForm() {
       <Field
         label="Region of origin"
         htmlFor="region"
-        hint="Pick a country, or type a region — e.g. Mesopotamia, Andes"
+        hint="Type any country, region, kingdom, or place, even one not in the list. Try Mesopotamia, the Andes, Yorubaland, or anywhere else."
       >
         <Combobox
           id="region"
@@ -197,7 +197,8 @@ export function SubmitForm() {
           onChange={setRegion}
           allowCustom
           required
-          placeholder="Choose or type..."
+          placeholder="Type any place..."
+          customHeader="Type any place. Or pick from the list."
         />
       </Field>
 

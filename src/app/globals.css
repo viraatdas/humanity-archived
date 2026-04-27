@@ -156,29 +156,49 @@ a:hover {
   font-size: 0.82rem;
 }
 .ha-combobox-item-custom { font-style: italic; color: var(--color-ink-soft); }
+.ha-combobox-header {
+  padding: 0.5rem 0.75rem 0.4rem;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--color-ink-soft);
+  border-bottom: 1px solid var(--color-rule);
+  margin-bottom: 4px;
+}
 
 /* ---- Era toggle ---- */
 .ha-era-toggle {
   display: inline-flex;
-  border: 1px solid var(--color-rule);
-  border-radius: 8px;
-  overflow: hidden;
+  align-items: center;
+  background: #f3ecdc;
+  border-radius: 999px;
+  padding: 3px;
   height: 44px;
-  align-self: end;
+  flex-shrink: 0;
+}
+body.submit-page .ha-era-toggle {
+  background: #f1efe9;
 }
 .ha-era-toggle button {
-  padding: 0 1rem;
+  border: none;
   background: transparent;
+  padding: 0 0.95rem;
+  height: 100%;
+  border-radius: 999px;
   font-family: var(--font-serif);
-  font-size: 0.9rem;
-  letter-spacing: 1px;
+  font-size: 0.85rem;
+  letter-spacing: 1.5px;
   color: var(--color-ink-soft);
   cursor: pointer;
-  min-width: 56px;
+  transition: background 140ms ease, color 140ms ease;
+  min-width: 54px;
+}
+.ha-era-toggle button:hover {
+  color: var(--color-ink);
 }
 .ha-era-toggle button[aria-pressed="true"] {
   background: var(--color-ink);
   color: var(--color-paper);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
 /* ---- Substack-style prose editor ---- */
