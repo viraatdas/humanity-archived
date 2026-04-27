@@ -106,6 +106,21 @@ export function SubmitForm() {
         </p>
       </header>
 
+      <Field
+        label="Your email"
+        htmlFor="email"
+        hint="We'll let you know once your story has been reviewed, and again when it's approved and live. Not shown publicly."
+      >
+        <input
+          id="email"
+          name="email"
+          type="email"
+          required
+          className="ha-input"
+          placeholder="you@example.com"
+        />
+      </Field>
+
       <Field label="Title" htmlFor="title">
         <input
           id="title"
@@ -252,20 +267,6 @@ export function SubmitForm() {
           value={body}
           onChange={setBody}
           placeholder="Tell the story..."
-        />
-      </Field>
-
-      <Field
-        label="Your email"
-        htmlFor="email"
-        hint="So we can let you know once your story has been reviewed, and again when it's approved and live."
-      >
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          className="ha-input"
         />
       </Field>
 

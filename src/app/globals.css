@@ -186,6 +186,72 @@ a:hover {
   border: 1px solid var(--color-rule);
   border-radius: 10px;
   background: #ffffff;
+  overflow: hidden;
+}
+.ha-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--color-rule);
+  background: #faf9f6;
+}
+.ha-toolbar-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+}
+.ha-toolbar-btn:hover { background: rgba(0,0,0,0.05); }
+.ha-toolbar-btn-active {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+.ha-toolbar-btn-active:hover { background: var(--color-ink); opacity: 0.92; }
+.ha-toolbar-link {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--color-rule);
+  background: #faf9f6;
+}
+.ha-toolbar-link input {
+  flex: 1;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 6px;
+  background: #fff;
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  outline: none;
+  min-height: 36px;
+}
+.ha-toolbar-link input:focus { border-color: var(--color-ink); }
+.ha-toolbar-link button {
+  padding: 0.45rem 0.7rem;
+  border-radius: 6px;
+  border: none;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  cursor: pointer;
+  min-height: 36px;
+}
+.ha-toolbar-link-cancel {
+  background: transparent !important;
+  color: var(--color-ink-soft) !important;
+}
+.ha-editor-shell > .tiptap, .ha-editor-shell .ha-editor {
   padding: 1.25rem 1.5rem;
 }
 .ha-editor {
