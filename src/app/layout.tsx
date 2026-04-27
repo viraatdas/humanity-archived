@@ -58,7 +58,7 @@ export default function RootLayout({
       </head>
       <body>
         <SiteHeader />
-        <main className="mx-auto px-6 pb-24">{children}</main>
+        <main className="mx-auto px-5 pb-20 sm:px-6 sm:pb-24">{children}</main>
         <SiteFooter />
       </body>
     </html>
@@ -67,15 +67,18 @@ export default function RootLayout({
 
 function SiteHeader() {
   return (
-    <header className="mx-auto flex max-w-5xl items-baseline justify-between px-6 pt-8 pb-12">
+    <header className="mx-auto flex max-w-5xl flex-wrap items-baseline justify-between gap-3 px-5 pt-6 pb-8 sm:px-6 sm:pt-8 sm:pb-12">
       <Link
         href="/"
-        className="font-serif text-lg tracking-tight no-underline"
+        className="font-serif text-base tracking-tight no-underline sm:text-lg"
         style={{ textDecoration: "none" }}
       >
         Humanity Archived
       </Link>
-      <nav className="flex gap-6 text-sm" style={{ color: "var(--color-ink-soft)" }}>
+      <nav
+        className="flex gap-4 text-sm sm:gap-6"
+        style={{ color: "var(--color-ink-soft)" }}
+      >
         <Link href="/" style={{ textDecoration: "none" }}>Archive</Link>
         <Link href="/submit" style={{ textDecoration: "none" }}>Contribute</Link>
         <Link href="/about" style={{ textDecoration: "none" }}>About</Link>
@@ -87,10 +90,10 @@ function SiteHeader() {
 function SiteFooter() {
   return (
     <footer
-      className="mx-auto max-w-5xl px-6 pt-16 pb-12 text-sm"
+      className="mx-auto max-w-5xl px-5 pt-12 pb-10 text-sm sm:px-6 sm:pt-16 sm:pb-12"
       style={{ color: "var(--color-ink-soft)", borderTop: "1px solid var(--color-rule)" }}
     >
-      <div className="flex flex-wrap items-baseline justify-between gap-4">
+      <div className="flex flex-wrap items-baseline justify-between gap-3">
         <span>Humanity Archived</span>
         <span>Stories shared under CC BY-SA 4.0.</span>
       </div>

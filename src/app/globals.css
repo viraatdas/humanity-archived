@@ -94,3 +94,215 @@ a:hover {
   border-top: 1px solid var(--color-rule);
   margin: 2.5rem 0;
 }
+
+/* ---- Form inputs (used on /submit) ---- */
+.ha-input {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--color-rule);
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  color: var(--color-ink);
+  outline: none;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+  min-height: 44px;
+}
+.ha-input::placeholder { color: #b6ad9d; }
+.ha-input:focus {
+  border-color: var(--color-ink);
+  box-shadow: 0 0 0 3px rgba(26, 23, 20, 0.06);
+}
+
+/* ---- Combobox ---- */
+.ha-combobox-caret {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--color-ink-soft);
+}
+.ha-combobox-list {
+  position: absolute;
+  z-index: 30;
+  margin-top: 4px;
+  width: 100%;
+  max-height: 16rem;
+  overflow-y: auto;
+  background: #ffffff;
+  border: 1px solid var(--color-rule);
+  border-radius: 10px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 4px;
+}
+.ha-combobox-item {
+  padding: 0.55rem 0.75rem;
+  border-radius: 6px;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.ha-combobox-item-active { background: #f3ecdc; }
+.ha-combobox-item-desc {
+  color: var(--color-ink-soft);
+  font-size: 0.82rem;
+}
+.ha-combobox-item-custom { font-style: italic; color: var(--color-ink-soft); }
+
+/* ---- Era toggle ---- */
+.ha-era-toggle {
+  display: inline-flex;
+  border: 1px solid var(--color-rule);
+  border-radius: 8px;
+  overflow: hidden;
+  height: 44px;
+  align-self: end;
+}
+.ha-era-toggle button {
+  padding: 0 1rem;
+  background: transparent;
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  min-width: 56px;
+}
+.ha-era-toggle button[aria-pressed="true"] {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* ---- TipTap editor ---- */
+.ha-editor-shell {
+  border: 1px solid var(--color-rule);
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 1.25rem 1.5rem;
+}
+.ha-editor {
+  font-family: var(--font-serif);
+  font-size: 1.18rem;
+  line-height: 1.65;
+  color: var(--color-ink);
+  min-height: 22rem;
+}
+.ha-editor p { margin: 0.6em 0; }
+.ha-editor h2 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 1.4em;
+  margin-bottom: 0.2em;
+}
+.ha-editor h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 1.2em;
+  margin-bottom: 0.2em;
+}
+.ha-editor blockquote {
+  border-left: 2px solid var(--color-rule);
+  padding-left: 1rem;
+  color: var(--color-ink-soft);
+  font-style: italic;
+  margin: 1em 0;
+}
+.ha-editor ul, .ha-editor ol { padding-left: 1.5rem; margin: 0.6em 0; }
+.ha-editor a.ha-editor-link {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: rgba(138, 75, 42, 0.4);
+  text-underline-offset: 3px;
+}
+.ha-editor strong { font-weight: 600; }
+.ha-editor p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: #b6ad9d;
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
+
+/* ---- Bubble menu ---- */
+.ha-bubble {
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+.ha-bubble-btn {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  color: var(--color-paper);
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  background: transparent;
+  cursor: pointer;
+}
+.ha-bubble-btn:hover { background: rgba(255, 255, 255, 0.1); }
+.ha-bubble-btn-active { background: rgba(255, 255, 255, 0.18); }
+.ha-bubble-link {
+  margin-top: 4px;
+  display: flex;
+  gap: 4px;
+  background: var(--color-ink);
+  border-radius: 8px;
+  padding: 4px;
+}
+.ha-bubble-link input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  outline: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 5px;
+  color: var(--color-paper);
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  min-width: 220px;
+}
+.ha-bubble-link button {
+  padding: 0.3rem 0.7rem;
+  border-radius: 5px;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+/* ---- /submit white-bg layout ---- */
+body.submit-page {
+  background: #ffffff;
+}
+body.submit-page .ha-input {
+  border-color: #e2dfd9;
+}
+
+/* ---- Mobile tweaks ---- */
+@media (max-width: 640px) {
+  .ha-editor-shell {
+    padding: 1rem 1.1rem;
+  }
+  .ha-editor {
+    font-size: 1.1rem;
+    min-height: 18rem;
+  }
+  .ha-bubble-link input { min-width: 160px; }
+}

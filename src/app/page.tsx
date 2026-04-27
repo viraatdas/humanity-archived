@@ -7,11 +7,11 @@ export default async function Home() {
 
   return (
     <div className="mx-auto max-w-5xl">
-      <section className="pb-12">
-        <h1 className="font-serif text-4xl leading-tight tracking-tight md:text-5xl">
+      <section className="pb-10 sm:pb-12">
+        <h1 className="font-serif text-3xl leading-tight tracking-tight sm:text-4xl md:text-5xl">
           The stories of being human,
-          <br />
-          gathered in one place.
+          <br className="hidden sm:inline" />
+          {" "}gathered in one place.
         </h1>
         <p
           className="mt-6 max-w-xl text-base"

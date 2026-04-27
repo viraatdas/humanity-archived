@@ -15,8 +15,8 @@ export type Genre = (typeof GENRES)[number];
 export const RegionSchema = z.object({
   name: z.string().min(1),
   countryCode: z.string().length(2).optional(),
-  lat: z.number().min(-90).max(90),
-  lng: z.number().min(-180).max(180),
+  lat: z.number().min(-90).max(90).optional(),
+  lng: z.number().min(-180).max(180).optional(),
 });
 
 export type Region = z.infer<typeof RegionSchema>;

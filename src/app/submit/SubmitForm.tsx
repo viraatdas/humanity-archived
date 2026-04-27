@@ -3,6 +3,9 @@
 import { useState, useTransition } from "react";
 import { GENRES } from "@/lib/schema";
 import { REGIONS } from "@/lib/regions";
+import { LANGUAGES } from "@/lib/languages";
+import { Combobox, type ComboboxOption } from "@/components/Combobox";
+import { Editor } from "@/components/Editor";
 import { submitStory, type SubmitResult } from "./actions";
 
 const GENRE_LABELS: Record<(typeof GENRES)[number], string> = {
@@ -15,21 +18,55 @@ const GENRE_LABELS: Record<(typeof GENRES)[number], string> = {
   epic: "Epic",
 };
 
+const GENRE_OPTIONS: ComboboxOption[] = GENRES.map((g) => ({
+  value: g,
+  label: GENRE_LABELS[g],
+}));
+
+const REGION_OPTIONS: ComboboxOption[] = REGIONS.map((r) => ({
+  value: r.code,
+  label: r.name,
+}));
+
+const LANGUAGE_OPTIONS: ComboboxOption[] = LANGUAGES.map((l) => ({
+  value: l.code,
+  label: l.name,
+  description: l.code,
+}));
+
+type Era = "BCE" | "CE";
+
 export function SubmitForm() {
   const [pending, start] = useTransition();
   const [result, setResult] = useState<SubmitResult | null>(null);
-  const [showPreview, setShowPreview] = useState(false);
+
+  const [region, setRegion] = useState("");
+  const [genre, setGenre] = useState("");
+  const [language, setLanguage] = useState("en");
+  const [year, setYear] = useState("");
+  const [era, setEra] = useState<Era>("CE");
   const [body, setBody] = useState("");
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
+    fd.set("body", body);
+    fd.set("region", region);
+    fd.set("genre", genre);
+    fd.set("language", language);
+    fd.set("year", year);
+    fd.set("era", era);
     setResult(null);
     start(async () => {
       const r = await submitStory(fd);
       setResult(r);
       if (r.ok) {
         (e.target as HTMLFormElement).reset();
+        setRegion("");
+        setGenre("");
+        setLanguage("en");
+        setYear("");
+        setEra("CE");
         setBody("");
       }
     });
@@ -48,7 +85,7 @@ export function SubmitForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mx-auto max-w-2xl space-y-6 pt-4">
+    <form onSubmit={onSubmit} className="mx-auto max-w-2xl space-y-7 pt-2 pb-12">
       <header className="pb-2">
         <p
           className="text-xs uppercase tracking-widest"
@@ -56,7 +93,7 @@ export function SubmitForm() {
         >
           Contribute
         </p>
-        <h1 className="mt-3 font-serif text-4xl leading-tight tracking-tight md:text-5xl">
+        <h1 className="mt-3 font-serif text-3xl leading-tight tracking-tight sm:text-4xl md:text-5xl">
           Share a story.
         </h1>
         <p
@@ -76,107 +113,119 @@ export function SubmitForm() {
           type="text"
           required
           maxLength={200}
-          className={inputCls}
+          className="ha-input"
           placeholder="The story of..."
         />
       </Field>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <Field
-          label="Approximate time period"
-          htmlFor="timePeriod"
-          hint="e.g. c. 800 BCE, medieval, 1920s, ancestral"
-        >
-          <input
-            id="timePeriod"
-            name="timePeriod"
-            type="text"
-            required
-            maxLength={100}
-            className={inputCls}
-          />
-        </Field>
-        <Field
-          label="Approximate year"
-          htmlFor="approxYear"
-          hint="optional, negative for BCE"
-        >
-          <input
-            id="approxYear"
-            name="approxYear"
-            type="number"
-            step="1"
-            className={inputCls}
-            placeholder="e.g. -800"
-          />
-        </Field>
-      </div>
-
-      <Field label="Region of origin" htmlFor="regionCode">
-        <select
-          id="regionCode"
-          name="regionCode"
+      <Field
+        label="In a few words, when?"
+        htmlFor="timePeriod"
+        hint='Free-form, e.g. "medieval", "1920s", "ancestral", "early Heian period"'
+      >
+        <input
+          id="timePeriod"
+          name="timePeriod"
+          type="text"
           required
-          defaultValue=""
-          className={inputCls}
-        >
-          <option value="" disabled>
-            Choose a region
-          </option>
-          {REGIONS.map((r) => (
-            <option key={r.code} value={r.code}>
-              {r.name}
-            </option>
-          ))}
-        </select>
+          maxLength={100}
+          className="ha-input"
+          placeholder="medieval, ancestral, 1920s..."
+        />
+      </Field>
+
+      <Field
+        label="Approximate year (optional)"
+        htmlFor="year"
+        hint="Helps place the story on a timeline"
+      >
+        <div className="flex gap-3">
+          <input
+            id="year"
+            type="number"
+            min={0}
+            step={1}
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            className="ha-input"
+            placeholder="e.g. 800"
+          />
+          <div className="ha-era-toggle" role="group" aria-label="Era">
+            <button
+              type="button"
+              aria-pressed={era === "BCE"}
+              onClick={() => setEra("BCE")}
+            >
+              BCE
+            </button>
+            <button
+              type="button"
+              aria-pressed={era === "CE"}
+              onClick={() => setEra("CE")}
+            >
+              CE
+            </button>
+          </div>
+        </div>
+      </Field>
+
+      <Field
+        label="Region of origin"
+        htmlFor="region"
+        hint="Pick a country, or type a region — e.g. Mesopotamia, Andes"
+      >
+        <Combobox
+          id="region"
+          name="region"
+          options={REGION_OPTIONS}
+          value={region}
+          onChange={setRegion}
+          allowCustom
+          required
+          placeholder="Choose or type..."
+        />
       </Field>
 
       <Field label="Genre" htmlFor="genre">
-        <select
+        <Combobox
           id="genre"
           name="genre"
+          options={GENRE_OPTIONS}
+          value={genre}
+          onChange={setGenre}
           required
-          defaultValue=""
-          className={inputCls}
-        >
-          <option value="" disabled>
-            Choose a genre
-          </option>
-          {GENRES.map((g) => (
-            <option key={g} value={g}>
-              {GENRE_LABELS[g]}
-            </option>
-          ))}
-        </select>
+          placeholder="Choose a genre"
+        />
       </Field>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <Field
           label="Author or attribution"
           htmlFor="author"
-          hint='optional. e.g. "grandmother", "anonymous folk tradition", or a name'
+          hint='Optional. e.g. "grandmother", "anonymous folk tradition", or a name'
         >
           <input
             id="author"
             name="author"
             type="text"
             maxLength={120}
-            className={inputCls}
+            className="ha-input"
           />
         </Field>
         <Field
           label="Original language"
           htmlFor="language"
-          hint="ISO code, e.g. en, hi, sw"
+          hint="Pick from the list or type any language"
         >
-          <input
+          <Combobox
             id="language"
             name="language"
-            type="text"
+            options={LANGUAGE_OPTIONS}
+            value={language}
+            onChange={setLanguage}
+            allowCustom
             required
-            maxLength={10}
-            defaultValue="en"
-            className={inputCls}
+            placeholder="English, Hindi, Yoruba..."
           />
         </Field>
       </div>
@@ -186,7 +235,7 @@ export function SubmitForm() {
           type="checkbox"
           name="authorVisible"
           defaultChecked
-          className="mt-1"
+          className="mt-1 h-4 w-4"
         />
         <span>
           Show this attribution publicly. Uncheck to keep the contributor
@@ -197,62 +246,26 @@ export function SubmitForm() {
       <Field
         label="The story"
         htmlFor="body"
-        hint="Markdown is welcome. Footnotes, citations, and emphasis all work."
+        hint="Write naturally. Select text to format. Press Enter for a new paragraph."
       >
-        <div className="flex items-center justify-end pb-2">
-          <button
-            type="button"
-            onClick={() => setShowPreview((p) => !p)}
-            className="text-xs"
-            style={{ color: "var(--color-ink-soft)" }}
-          >
-            {showPreview ? "Edit" : "Preview"}
-          </button>
-        </div>
-        {showPreview ? (
-          <div
-            className="prose min-h-[16rem] rounded border p-4"
-            style={{ borderColor: "var(--color-rule)" }}
-          >
-            {body.trim() === "" ? (
-              <p style={{ color: "var(--color-ink-soft)" }}>
-                Nothing to preview yet.
-              </p>
-            ) : (
-              <pre style={{ whiteSpace: "pre-wrap", fontFamily: "inherit" }}>
-                {body}
-              </pre>
-            )}
-          </div>
-        ) : (
-          <textarea
-            id="body"
-            name="body"
-            required
-            minLength={20}
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            rows={14}
-            className={`${inputCls} font-mono text-sm leading-relaxed`}
-            placeholder="Tell the story..."
-          />
-        )}
-        {showPreview && (
-          <input type="hidden" name="body" value={body} readOnly />
-        )}
+        <Editor
+          value={body}
+          onChange={setBody}
+          placeholder="Tell the story..."
+        />
       </Field>
 
       <Field
         label="Your email"
         htmlFor="email"
-        hint="So we can let you know once the story is reviewed. We won't publish it."
+        hint="So we can let you know once your story has been reviewed, and again when it's approved and live."
       >
         <input
           id="email"
           name="email"
           type="email"
           required
-          className={inputCls}
+          className="ha-input"
         />
       </Field>
 
@@ -268,18 +281,22 @@ export function SubmitForm() {
         </p>
       )}
 
-      <div className="flex items-center justify-between border-t pt-6" style={{ borderColor: "var(--color-rule)" }}>
+      <div
+        className="flex flex-col-reverse items-start gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between"
+        style={{ borderColor: "var(--color-rule)" }}
+      >
         <span className="text-xs" style={{ color: "var(--color-ink-soft)" }}>
           Licensed under CC BY-SA 4.0
         </span>
         <button
           type="submit"
           disabled={pending}
-          className="rounded-full px-5 py-2 text-sm"
+          className="w-full rounded-full px-6 py-3 text-sm sm:w-auto"
           style={{
             background: "var(--color-ink)",
             color: "var(--color-paper)",
             opacity: pending ? 0.5 : 1,
+            minHeight: 48,
           }}
         >
           {pending ? "Sending..." : "Submit for review"}
@@ -288,9 +305,6 @@ export function SubmitForm() {
     </form>
   );
 }
-
-const inputCls =
-  "w-full rounded border bg-transparent px-3 py-2 text-base outline-none focus:border-[var(--color-accent)] border-[var(--color-rule)]";
 
 function Field({
   label,
