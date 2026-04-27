@@ -100,7 +100,8 @@ export default async function OpenGraphImage() {
 }
 
 function ConstellationMark({ size }: { size: number }) {
-  const dot = size * 0.16;
+  const center = size * 0.16;
+  const corner = size * 0.13;
   return (
     <div
       style={{
@@ -112,36 +113,39 @@ function ConstellationMark({ size }: { size: number }) {
         display: "flex",
       }}
     >
+      {/* top-right */}
       <div
         style={{
           position: "absolute",
-          top: size * 0.22,
-          left: size * 0.5 - dot / 2,
-          width: dot,
-          height: dot,
-          borderRadius: dot,
+          top: size * 0.24,
+          left: size * 0.7 - corner / 2,
+          width: corner,
+          height: corner,
+          borderRadius: corner,
           background: "#fbf8f3",
         }}
       />
+      {/* center */}
       <div
         style={{
           position: "absolute",
-          top: size * 0.6,
-          left: size * 0.22,
-          width: dot,
-          height: dot,
-          borderRadius: dot,
+          top: size * 0.5 - center / 2,
+          left: size * 0.5 - center / 2,
+          width: center,
+          height: center,
+          borderRadius: center,
           background: "#fbf8f3",
         }}
       />
+      {/* bottom-left */}
       <div
         style={{
           position: "absolute",
-          top: size * 0.6,
-          left: size * 0.78 - dot,
-          width: dot,
-          height: dot,
-          borderRadius: dot,
+          top: size * 0.76 - corner,
+          left: size * 0.3 - corner / 2,
+          width: corner,
+          height: corner,
+          borderRadius: corner,
           background: "#fbf8f3",
         }}
       />
