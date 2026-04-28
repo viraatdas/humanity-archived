@@ -77,17 +77,44 @@ export function Editor({ value, onChange, placeholder }: Props) {
     setUploadError(null);
     setUploadingCount((n) => n + 1);
     try {
-      const fd = new FormData();
-      fd.set("file", file);
-      const res = await fetch("/api/upload", { method: "POST", body: fd });
-      const data: { ok: boolean; url?: string; error?: string } = await res.json();
-      if (!data.ok || !data.url) {
-        throw new Error(data.error ?? `Upload failed (${res.status})`);
+      // 1) Ask the server for a presigned PUT URL.
+      const params = new URLSearchParams({
+        filename: file.name || "image",
+        contentType: file.type,
+        size: String(file.size),
+      });
+      const presignRes = await fetch(`/api/upload?${params.toString()}`);
+      const presign: {
+        ok: boolean;
+        uploadUrl?: string;
+        publicUrl?: string;
+        contentType?: string;
+        error?: string;
+      } = await presignRes.json();
+      if (!presign.ok || !presign.uploadUrl || !presign.publicUrl) {
+        throw new Error(presign.error ?? `Could not prepare upload (${presignRes.status})`);
       }
+
+      // 2) PUT the file directly to S3.
+      const putRes = await fetch(presign.uploadUrl, {
+        method: "PUT",
+        body: file,
+        headers: {
+          "Content-Type": presign.contentType ?? file.type,
+        },
+      });
+      if (!putRes.ok) {
+        throw new Error(`Image upload to storage failed (${putRes.status})`);
+      }
+
+      // 3) Insert the public (CloudFront) URL into the editor.
       editor
         .chain()
         .focus()
-        .setImage({ src: data.url, alt: file.name.replace(/\.[^/.]+$/, "") })
+        .setImage({
+          src: presign.publicUrl,
+          alt: file.name.replace(/\.[^/.]+$/, ""),
+        })
         .run();
     } catch (err) {
       setUploadError(err instanceof Error ? err.message : "Image upload failed");
