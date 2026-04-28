@@ -30,6 +30,28 @@ export default async function Home() {
       {stories.length > 0 && <WorldMap stories={stories} />}
 
       <section className="border-t pt-8" style={{ borderColor: "var(--color-rule)" }}>
+        <h2 className="font-serif text-xl">Browse by genre</h2>
+        <ul className="mt-4 flex flex-wrap gap-2 text-sm">
+          {GENRES.map((g) => (
+            <li key={g}>
+              <Link
+                href={`/?genre=${g}`}
+                className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5"
+                style={{
+                  borderColor: "var(--color-rule)",
+                  textDecoration: "none",
+                  color: "var(--color-ink-soft)",
+                }}
+              >
+                <GenreDot genre={g} />
+                {GENRE_LABELS[g]}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="mt-12 border-t pt-8" style={{ borderColor: "var(--color-rule)" }}>
         <div className="flex flex-wrap items-baseline justify-between gap-4">
           <h2 className="font-serif text-xl">Recently archived</h2>
           <Link href="/submit" className="text-sm">Contribute a story &rarr;</Link>
@@ -78,28 +100,6 @@ export default async function Home() {
             ))}
           </ul>
         )}
-      </section>
-
-      <section className="mt-16">
-        <h2 className="font-serif text-xl">Browse by genre</h2>
-        <ul className="mt-4 flex flex-wrap gap-2 text-sm">
-          {GENRES.map((g) => (
-            <li key={g}>
-              <Link
-                href={`/?genre=${g}`}
-                className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5"
-                style={{
-                  borderColor: "var(--color-rule)",
-                  textDecoration: "none",
-                  color: "var(--color-ink-soft)",
-                }}
-              >
-                <GenreDot genre={g} />
-                {GENRE_LABELS[g]}
-              </Link>
-            </li>
-          ))}
-        </ul>
       </section>
     </div>
   );

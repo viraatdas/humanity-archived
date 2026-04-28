@@ -69,6 +69,8 @@ export function Timeline({
     }
 
     function startMomentum() {
+      const node = el;
+      if (!node) return;
       if (Math.abs(velocity) < 0.08) {
         velocity = 0;
         return;
@@ -79,12 +81,12 @@ export function Timeline({
       const tick = (now: number) => {
         const dt = now - last;
         last = now;
-        el.scrollLeft += velocity * dt;
+        node.scrollLeft += velocity * dt;
         // Half-life ≈ 300 ms.
         velocity *= Math.pow(0.997, dt);
         // Stop on ends.
-        const max = el.scrollWidth - el.clientWidth;
-        if (el.scrollLeft <= 0 || el.scrollLeft >= max) {
+        const max = node.scrollWidth - node.clientWidth;
+        if (node.scrollLeft <= 0 || node.scrollLeft >= max) {
           velocity = 0;
         }
         if (Math.abs(velocity) < 0.02) {
