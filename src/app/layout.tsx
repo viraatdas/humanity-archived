@@ -93,8 +93,14 @@ function SiteFooter() {
       className="mx-auto max-w-5xl px-5 pt-12 pb-10 text-sm sm:px-6 sm:pt-16 sm:pb-12"
       style={{ color: "var(--color-ink-soft)", borderTop: "1px solid var(--color-rule)" }}
     >
-      <div className="flex flex-wrap items-baseline justify-between gap-3">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-3">
         <span>Humanity Archived</span>
+        <a
+          href="mailto:viraat@humanityarchived.com"
+          style={{ color: "inherit", textDecoration: "none" }}
+        >
+          viraat@humanityarchived.com
+        </a>
         <span>Stories shared under CC BY-SA 4.0.</span>
       </div>
     </footer>

@@ -54,6 +54,15 @@ export default function AboutPage() {
           shared here is shared freely, under a Creative Commons license,
           so the stories can keep moving the way stories always have.
         </p>
+
+        <p style={{ color: "var(--color-ink-soft)" }}>
+          If you have a story, a question, or a correction to offer, write
+          to me at{" "}
+          <a href="mailto:viraat@humanityarchived.com">
+            viraat@humanityarchived.com
+          </a>
+          .
+        </p>
       </div>
     </article>
   );
