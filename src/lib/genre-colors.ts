@@ -1,14 +1,12 @@
 import type { Genre } from "./schema";
 
-export const GENRE_COLORS: Record<Genre, string> = {
-  mythology: "#4a4a7a",
-  folklore: "#4a6b3e",
-  "oral-history": "#8a4b2a",
-  religious: "#b08840",
-  historical: "#5a6b78",
-  personal: "#a86a5e",
-  epic: "#7a3a3a",
-};
+/**
+ * Genre dot CSS classes. The actual colors live in globals.css under
+ * `.genre-dot-*` and adapt to the active theme (paper/white/ink).
+ */
+export function genreDotClass(genre: Genre): string {
+  return `genre-dot genre-dot-${genre}`;
+}
 
 export const GENRE_LABELS: Record<Genre, string> = {
   mythology: "Mythology",

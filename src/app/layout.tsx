@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+
+const themeInitScript = `(function(){try{var t=localStorage.getItem('ha-theme');if(!t||['paper','white','ink'].indexOf(t)===-1)t='paper';document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme='paper';}})();`;
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://humanity-archived.vercel.app";
 const description =
@@ -49,8 +52,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="paper" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600&display=swap"
@@ -75,14 +79,17 @@ function SiteHeader() {
       >
         Humanity Archived
       </Link>
-      <nav
-        className="flex gap-4 text-sm sm:gap-6"
+      <div
+        className="flex items-center gap-4 sm:gap-6"
         style={{ color: "var(--color-ink-soft)" }}
       >
-        <Link href="/" style={{ textDecoration: "none" }}>Archive</Link>
-        <Link href="/submit" style={{ textDecoration: "none" }}>Contribute</Link>
-        <Link href="/about" style={{ textDecoration: "none" }}>About</Link>
-      </nav>
+        <nav className="flex gap-4 text-sm sm:gap-6">
+          <Link href="/" style={{ textDecoration: "none" }}>Archive</Link>
+          <Link href="/submit" style={{ textDecoration: "none" }}>Contribute</Link>
+          <Link href="/about" style={{ textDecoration: "none" }}>About</Link>
+        </nav>
+        <ThemeSwitcher />
+      </div>
     </header>
   );
 }

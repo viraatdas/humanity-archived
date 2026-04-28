@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { listStories } from "@/lib/stories";
 import { GENRES } from "@/lib/schema";
-import { GENRE_COLORS, GENRE_LABELS } from "@/lib/genre-colors";
+import { genreDotClass, GENRE_LABELS } from "@/lib/genre-colors";
+import type { Genre } from "@/lib/schema";
 
 export default async function Home() {
   const stories = await listStories();
@@ -101,12 +102,6 @@ export default async function Home() {
   );
 }
 
-function GenreDot({ genre }: { genre: keyof typeof GENRE_COLORS }) {
-  return (
-    <span
-      aria-hidden
-      className="inline-block h-2 w-2 shrink-0 rounded-full"
-      style={{ background: GENRE_COLORS[genre] }}
-    />
-  );
+function GenreDot({ genre }: { genre: Genre }) {
+  return <span aria-hidden className={genreDotClass(genre)} />;
 }

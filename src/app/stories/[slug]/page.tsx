@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getStory, pickBody, renderMarkdown } from "@/lib/stories";
-import { GENRE_COLORS, GENRE_LABELS } from "@/lib/genre-colors";
+import { genreDotClass, GENRE_LABELS } from "@/lib/genre-colors";
 
 export async function generateMetadata({
   params,
@@ -41,11 +41,7 @@ export default async function StoryPage({
           className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs uppercase tracking-widest"
           style={{ color: "var(--color-ink-soft)" }}
         >
-          <span
-            aria-hidden
-            className="inline-block h-2 w-2 rounded-full"
-            style={{ background: GENRE_COLORS[story.genre] }}
-          />
+          <span aria-hidden className={genreDotClass(story.genre)} />
           <span>{story.timePeriod}</span>
           <span>·</span>
           <span>{story.region.name}</span>
