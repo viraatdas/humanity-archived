@@ -55,9 +55,17 @@ export default function AboutPage() {
           so the stories can keep moving the way stories always have.
         </p>
 
+        <p>
+          Wherever possible, each story is presented in clear, modern
+          English so it stays accessible, alongside the original source it
+          came from. The translations are produced by language models for
+          now and credited like any other translator; the originals are
+          preserved so the language a story was first told or written in is
+          never lost.
+        </p>
+
         <p style={{ color: "var(--color-ink-soft)" }}>
-          If you have a story, a question, or a correction to offer, write
-          to me at{" "}
+          Contact me at{" "}
           <a href="mailto:viraat@humanityarchived.com">
             viraat@humanityarchived.com
           </a>
