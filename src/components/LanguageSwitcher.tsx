@@ -27,10 +27,14 @@ export default function LanguageSwitcher({
   const initial = bodies[defaultLang] ? defaultLang : codes[0];
   const [active, setActive] = useState(initial);
 
+  const RTL_LANGS = new Set(["ar", "he", "fa", "ur"]);
+  const dir = RTL_LANGS.has(active) ? "rtl" : "ltr";
+
   if (codes.length <= 1) {
     return (
       <div
         className="prose"
+        dir={dir}
         dangerouslySetInnerHTML={{ __html: preRendered[active] ?? "" }}
       />
     );
@@ -64,6 +68,7 @@ export default function LanguageSwitcher({
       </div>
       <div
         className="prose"
+        dir={dir}
         dangerouslySetInnerHTML={{ __html: preRendered[active] ?? "" }}
       />
     </div>

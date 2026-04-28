@@ -1,0 +1,21 @@
+Il y a très longtemps, avant les dynasties Qin et Han, le chef d'un royaume du sud, dans les cavernes, nommé Wu, prit deux épouses. L'une d'elles mourut, laissant une fille appelée Yeh-Shen. Yeh-Shen était habile et douce, et elle avait été la favorite de son père. Quand son père mourut à son tour, elle tomba sous la garde de sa belle-mère, qui la haïssait, et fut forcée d'aller chercher du bois dans les endroits les plus dangereux et tirer l'eau des puits les plus profonds.
+
+Un jour, Yeh-Shen attrapa un petit poisson aux nageoires rouges et aux yeux d'or, et le mit dans un bol d'eau. Le poisson grandit, et elle le fit passer dans un bol plus grand, puis dans une mare, jusqu'à ce qu'il mesurât plus de trois mètres. Le poisson ne sortait de l'eau que lorsque Yeh-Shen se tenait sur la rive; pour quiconque d'autre, il restait caché.
+
+La belle-mère devint soupçonneuse. Un matin, elle revêtit la veste en lambeaux de Yeh-Shen et descendit à la mare. Le poisson, croyant que son amie était venue, sortit sa grande tête de l'eau, et la belle-mère le tua avec un couteau qu'elle avait caché dans sa manche. Elle fit cuire la chair et la mangea avec sa propre fille, et elles dirent que la chair avait deux fois le goût d'un poisson ordinaire. Les os, elle les enterra sous un tas de fumier.
+
+Yeh-Shen parcourut la campagne en pleurant à la recherche de son poisson. Un vieil homme aux cheveux qui descendaient jusqu'aux épaules, vêtu d'habits grossiers, apparut dans le ciel et l'appela: "Ne pleure pas. Ta belle-mère a tué ton poisson, et les os sont sous le tas de fumier. Va les ramasser. Tout ce que tu leur demanderas, ils te le donneront." Yeh-Shen fit ce qu'on lui avait dit, rapporta les os à la maison et les cacha dans sa chambre. À partir de ce jour, chaque fois qu'elle voulait de la nourriture ou des vêtements, il lui suffisait de demander aux os, et ce dont elle avait besoin apparaissait.
+
+Vint le temps de la fête de printemps, où jeunes hommes et jeunes femmes du pays des cavernes se rassemblaient pour choisir maris et épouses. La belle-mère y alla avec sa propre fille et ordonna à Yeh-Shen de rester à la maison pour surveiller les arbres fruitiers. Dès qu'elles furent hors de vue, Yeh-Shen demanda une robe aux os. On lui donna un manteau de plumes de martin-pêcheur, et aux pieds une paire de chaussons d'or. Vêtue ainsi, elle suivit sa belle-mère à la fête.
+
+Elle était si belle que tous la regardaient, et la belle-mère et la demi-sœur crurent presque la reconnaître. Effrayée d'être démasquée, Yeh-Shen s'enfuit avec une telle hâte qu'elle perdit l'un de ses chaussons d'or, et un homme à la fête le ramassa.
+
+Le chausson passa de main en main jusqu'à parvenir au roi d'un royaume insulaire voisin appelé T'o-Han. Le roi en fut frappé, car c'était le chausson le plus léger du monde, et aussi léger au pied qu'une plume. Il fit essayer le chausson à toutes les femmes de son royaume, et aucune ne put y faire entrer son pied. Le chausson n'était pas plus grand que le plus petit doigt.
+
+Sa recherche le conduisit enfin au pays des cavernes et à la porte de la belle-mère de Yeh-Shen. Toutes les femmes de la maison essayèrent le chausson, et toutes échouèrent. Alors le roi vit Yeh-Shen, cachée dans un coin. Il fit porter le chausson près d'elle, et elle alla dans sa chambre et revint chaussée des deux chaussons et vêtue du manteau de plumes. Il sut sur-le-champ que c'était la femme qui avait disparu de la fête.
+
+Le roi l'emmena chez lui pour en faire sa reine. Quant à la belle-mère et à la demi-sœur, on raconte qu'elles furent ensevelies sous une grêle de pierres volantes, et qu'un sanctuaire fut élevé sur leur tombe que les habitants du pays des cavernes appelèrent le Tombeau des Femmes Affligées.
+
+Quant aux os du poisson, le roi les garda d'abord et leur demandait des trésors. Mais au bout d'un an, ils ne lui répondirent plus, et il les enterra le long du rivage avec cent boisseaux de perles et un bord d'or. Quand plus tard il alla les déterrer pour payer des soldats dans une guerre, la marée était montée et les avait emportés.
+
+Cette histoire fut racontée à Duan Chengshi par Li Shih-yuan, qui était le fils d'un homme du pays des cavernes, et se souvenait de beaucoup de ses contes.
