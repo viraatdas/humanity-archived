@@ -1,5 +1,3 @@
-import "server-only";
-
 export const EMBED_DIMS = 1536;
 
 type Provider = "gemini" | "voyage" | "openai";

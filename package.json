@@ -39,6 +39,7 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.1",
     "resend": "^6.12.2",
+    "server-only": "^0.0.1",
     "slugify": "^1.6.9",
     "tailwind-merge": "^2.6.0",
     "tiptap-markdown": "^0.9.0",

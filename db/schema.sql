@@ -3,10 +3,7 @@
 -- Run once on RDS Postgres 15+:
 --   psql "$DATABASE_URL" -f db/schema.sql
 -- The pg_trgm extension ships with stock RDS Postgres; pgvector ships
--- with RDS Postgres 15.3+ and 16.x by default. If `CREATE EXTENSION
--- vector;` errors, ensure the parameter group has `shared_preload_libraries`
--- including 'vector' (it usually doesn't need to — the extension is loaded
--- on-demand on supported versions).
+-- with RDS Postgres 15.3+ and 16.x by default.
 
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 CREATE EXTENSION IF NOT EXISTS vector;
@@ -29,20 +26,34 @@ CREATE TABLE IF NOT EXISTS stories (
   body_excerpt      text NOT NULL,
   body_full         text NOT NULL,
   content_hash      text NOT NULL,
-  tsv               tsvector
-                    GENERATED ALWAYS AS (
-                      setweight(to_tsvector('english', coalesce(title, '')), 'A') ||
-                      setweight(to_tsvector('english', coalesce(region_name, '')), 'B') ||
-                      setweight(to_tsvector('english', coalesce(time_period, '')), 'B') ||
-                      setweight(to_tsvector('english', coalesce(genre, '')), 'C') ||
-                      setweight(to_tsvector('english', coalesce(author, '')), 'C') ||
-                      setweight(to_tsvector('english', array_to_string(tags, ' ')), 'C') ||
-                      setweight(to_tsvector('english', coalesce(body_full, '')), 'D')
-                    ) STORED,
+  tsv               tsvector,
   embedding         vector(1536),
   created_at        timestamptz NOT NULL,
   updated_at        timestamptz NOT NULL DEFAULT now()
 );
+
+-- Maintain `tsv` via a trigger so we don't depend on the regconfig cast
+-- being IMMUTABLE (which Postgres enforces strictly for STORED generated
+-- columns).
+CREATE OR REPLACE FUNCTION stories_tsv_refresh() RETURNS trigger AS $$
+BEGIN
+  NEW.tsv :=
+    setweight(to_tsvector('english', coalesce(NEW.title, '')), 'A') ||
+    setweight(to_tsvector('english', coalesce(NEW.region_name, '')), 'B') ||
+    setweight(to_tsvector('english', coalesce(NEW.time_period, '')), 'B') ||
+    setweight(to_tsvector('english', coalesce(NEW.genre, '')), 'C') ||
+    setweight(to_tsvector('english', coalesce(NEW.author, '')), 'C') ||
+    setweight(to_tsvector('english', coalesce(array_to_string(NEW.tags, ' '), '')), 'C') ||
+    setweight(to_tsvector('english', coalesce(NEW.body_full, '')), 'D');
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS stories_tsv_trg ON stories;
+CREATE TRIGGER stories_tsv_trg
+  BEFORE INSERT OR UPDATE OF title, region_name, time_period, genre, author, tags, body_full
+  ON stories
+  FOR EACH ROW EXECUTE FUNCTION stories_tsv_refresh();
 
 CREATE INDEX IF NOT EXISTS stories_tsv_idx
   ON stories USING GIN (tsv);

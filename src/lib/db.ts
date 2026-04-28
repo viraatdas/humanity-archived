@@ -1,4 +1,3 @@
-import "server-only";
 import { Pool, type PoolConfig } from "pg";
 
 let pool: Pool | null = null;
