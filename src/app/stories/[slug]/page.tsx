@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getStory, pickBody, renderMarkdown } from "@/lib/stories";
+import { getStory, renderMarkdown } from "@/lib/stories";
 import { genreDotClass, GENRE_LABELS } from "@/lib/genre-colors";
+import { LANGUAGES } from "@/lib/languages";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 export async function generateMetadata({
   params,
@@ -24,7 +26,22 @@ export default async function StoryPage({
   const story = await getStory(slug);
   if (!story) notFound();
 
-  const html = await renderMarkdown(pickBody(story));
+  const codes = Object.keys(story.bodies);
+  const preRendered: Record<string, string> = {};
+  await Promise.all(
+    codes.map(async (code) => {
+      preRendered[code] = await renderMarkdown(story.bodies[code]);
+    }),
+  );
+  const languageNames: Record<string, string> = {};
+  for (const code of codes) {
+    if (code === "oral") {
+      languageNames[code] = "As recorded";
+    } else {
+      const known = LANGUAGES.find((l) => l.code === code);
+      languageNames[code] = known ? known.name : code.toUpperCase();
+    }
+  }
 
   return (
     <article className="mx-auto max-w-2xl pt-4">
@@ -61,9 +78,11 @@ export default async function StoryPage({
         )}
       </header>
 
-      <div
-        className="prose"
-        dangerouslySetInnerHTML={{ __html: html }}
+      <LanguageSwitcher
+        bodies={story.bodies}
+        defaultLang="en"
+        preRendered={preRendered}
+        languageNames={languageNames}
       />
 
       <footer
