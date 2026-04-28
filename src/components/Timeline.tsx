@@ -9,9 +9,9 @@ type Props = {
   onYearChange: (year: number) => void;
 };
 
-const PX_PER_YEAR = 0.6;
-const MINOR_STEP = 50; // tick every 50 years
-const MAJOR_EVERY = 5; // every 5th minor tick is a major (so every 250 years)
+const PX_PER_YEAR = 1.0;
+const MINOR_STEP = 50; // tick every 50 years (50px apart)
+const MAJOR_EVERY = 5; // every 5th minor tick is a major (every 250 years)
 
 function yearLabel(y: number): string {
   if (y < 0) return `${Math.abs(y).toLocaleString()} BCE`;
@@ -55,7 +55,21 @@ export function Timeline({
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
-    return () => ro.disconnect();
+
+    // Convert vertical wheel/trackpad gestures into horizontal scroll so
+    // a regular mouse wheel can scrub the timeline without shift+scroll.
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      if (e.deltaY === 0) return;
+      e.preventDefault();
+      el.scrollLeft += e.deltaY;
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+
+    return () => {
+      ro.disconnect();
+      el.removeEventListener("wheel", onWheel);
+    };
   }, []);
 
   // Set initial scroll once viewport width is known.
