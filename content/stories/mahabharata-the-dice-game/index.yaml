@@ -1,0 +1,34 @@
+slug: mahabharata-the-dice-game
+title: The Dice Game
+form: prose
+genre: epic
+timePeriod: Composed c. 400 BCE to 400 CE; events traditionally placed in the late 2nd millennium BCE
+approxYear: -1000
+language: sa
+isOralTradition: false
+region:
+  name: Hastinapura, North India
+  countryCode: IN
+  lat: 29.16
+  lng: 77.99
+cycle: mahabharata
+episode: dice-game
+variantLabel: null
+taleType: null
+tags:
+  - epic
+  - dharma
+  - betrayal
+author: Vyāsa (traditional)
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: null
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/The_Mahabharata
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

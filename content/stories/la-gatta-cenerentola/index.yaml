@@ -1,0 +1,32 @@
+slug: la-gatta-cenerentola
+title: La Gatta Cenerentola (The Cat Cinderella)
+form: prose
+genre: folklore
+timePeriod: Early 17th century
+approxYear: 1634
+language: nap
+isOralTradition: false
+region:
+  name: Naples, Kingdom of Naples
+  countryCode: IT
+  lat: 40.85
+  lng: 14.27
+cycle: pentamerone
+episode: null
+variantLabel: null
+taleType: ATU 510A
+tags:
+  - cinderella-pattern
+author: Giambattista Basile
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: null
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/The_Pentamerone
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

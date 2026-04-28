@@ -1,0 +1,32 @@
+slug: aschenputtel
+title: Aschenputtel
+form: prose
+genre: folklore
+timePeriod: Early 19th century (collected); rooted in older oral tradition
+approxYear: 1812
+language: de
+isOralTradition: false
+region:
+  name: Hesse, Germany
+  countryCode: DE
+  lat: 50.65
+  lng: 9.16
+cycle: grimm
+episode: null
+variantLabel: null
+taleType: ATU 510A
+tags:
+  - cinderella-pattern
+author: Brothers Grimm (collected)
+authorVisible: true
+collector: Jacob and Wilhelm Grimm (1812)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: null
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/Grimm%27s_Household_Tales,_Volume_1
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

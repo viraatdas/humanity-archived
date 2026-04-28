@@ -1,0 +1,33 @@
+slug: aesop-the-tortoise-and-the-hare
+title: The Tortoise and the Hare
+form: prose
+genre: folklore
+timePeriod: 6th century BCE (oral); first written compilations 4th century BCE
+approxYear: -550
+language: grc
+isOralTradition: true
+region:
+  name: Greece
+  countryCode: GR
+  lat: 39.07
+  lng: 21.82
+cycle: aesop
+episode: null
+variantLabel: null
+taleType: null
+tags:
+  - fable
+  - moral
+author: Aesop
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: null
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/Aesop%27s_Fables_(Townsend)
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

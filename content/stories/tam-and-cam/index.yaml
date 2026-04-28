@@ -1,0 +1,33 @@
+slug: tam-and-cam
+title: Tấm and Cám
+form: prose
+genre: folklore
+timePeriod: Pre-modern oral tradition; first written 19th century
+approxYear: null
+language: vi
+isOralTradition: true
+region:
+  name: Northern Vietnam
+  countryCode: VN
+  lat: 21.03
+  lng: 105.84
+cycle: null
+episode: null
+variantLabel: null
+taleType: ATU 510A
+tags:
+  - cinderella-pattern
+  - vietnamese-folklore
+author: Vietnamese oral tradition
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: null
+provenance:
+  kind: canon
+  source: oral-tradition
+  sourceUrl: null
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

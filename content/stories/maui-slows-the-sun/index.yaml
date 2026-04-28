@@ -1,0 +1,33 @@
+slug: maui-slows-the-sun
+title: Māui Slows the Sun
+form: prose
+genre: mythology
+timePeriod: Pre-contact Polynesian oral tradition (recorded 19th century)
+approxYear: null
+language: oral
+isOralTradition: true
+region:
+  name: Aotearoa (New Zealand)
+  countryCode: NZ
+  lat: -41.29
+  lng: 174.78
+cycle: maui
+episode: slowing-the-sun
+variantLabel: null
+taleType: null
+tags:
+  - culture-hero
+  - origin-of-time
+author: Māori oral tradition
+authorVisible: true
+collector: Sir George Grey (1855)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: Sir George Grey (1855)
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/Polynesian_Mythology
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

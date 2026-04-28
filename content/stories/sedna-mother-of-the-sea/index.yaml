@@ -1,0 +1,33 @@
+slug: sedna-mother-of-the-sea
+title: Sedna, Mother of the Sea
+form: prose
+genre: mythology
+timePeriod: Pre-contact Inuit oral tradition (recorded late 19th and early 20th century)
+approxYear: null
+language: oral
+isOralTradition: true
+region:
+  name: Baffin Island, Inuit Nunangat
+  countryCode: CA
+  lat: 66.5
+  lng: -68.0
+cycle: null
+episode: null
+variantLabel: null
+taleType: null
+tags:
+  - origin-of-sea-creatures
+  - underworld
+author: Inuit oral tradition
+authorVisible: true
+collector: Franz Boas (1888)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: Franz Boas (1888)
+provenance:
+  kind: canon
+  source: bureau-of-american-ethnology
+  sourceUrl: https://en.wikisource.org/wiki/The_Central_Eskimo
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

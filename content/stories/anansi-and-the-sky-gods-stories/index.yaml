@@ -1,0 +1,33 @@
+slug: anansi-and-the-sky-gods-stories
+title: How Anansi Got the Sky-God's Stories
+form: prose
+genre: folklore
+timePeriod: Pre-1900 oral tradition (recorded 1930)
+approxYear: null
+language: oral
+isOralTradition: true
+region:
+  name: Ashanti region, Ghana
+  countryCode: GH
+  lat: 6.69
+  lng: -1.62
+cycle: anansi
+episode: how-stories-came
+variantLabel: null
+taleType: null
+tags:
+  - trickster
+  - origin-of-stories
+author: Akan oral tradition
+authorVisible: true
+collector: R.S. Rattray (1930)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: R.S. Rattray (1930)
+provenance:
+  kind: canon
+  source: gutenberg
+  sourceUrl: https://www.sacred-texts.com/afr/aft/index.htm
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

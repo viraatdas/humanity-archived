@@ -30,7 +30,9 @@ async function loadStoryDir(dir: string): Promise<Story | null> {
   } catch {
     return null;
   }
-  const data = yaml.load(yamlRaw);
+  // JSON_SCHEMA keeps ISO timestamps as strings (default schema would coerce
+  // them to Date). createdAt and importedAt are typed as strings on purpose.
+  const data = yaml.load(yamlRaw, { schema: yaml.JSON_SCHEMA });
   const fm = StoryFrontmatterSchema.parse(data);
 
   const entries = await fs.readdir(dir);

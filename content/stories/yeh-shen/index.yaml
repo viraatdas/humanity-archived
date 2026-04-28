@@ -1,0 +1,32 @@
+slug: yeh-shen
+title: Yeh-Shen
+form: prose
+genre: folklore
+timePeriod: 9th century
+approxYear: 850
+language: zh
+isOralTradition: false
+region:
+  name: Tang dynasty China
+  countryCode: CN
+  lat: 23.13
+  lng: 113.26
+cycle: null
+episode: null
+variantLabel: null
+taleType: ATU 510A
+tags:
+  - cinderella-pattern
+author: Duan Chengshi
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: null
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/Author:Duan_Chengshi
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

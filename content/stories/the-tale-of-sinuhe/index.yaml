@@ -1,0 +1,33 @@
+slug: the-tale-of-sinuhe
+title: The Tale of Sinuhe
+form: prose
+genre: historical
+timePeriod: Middle Kingdom Egypt, c. 1875 BCE
+approxYear: -1875
+language: egy
+isOralTradition: false
+region:
+  name: Itj-tawy, Middle Kingdom Egypt
+  countryCode: EG
+  lat: 29.42
+  lng: 31.21
+cycle: ancient-egypt-tales
+episode: null
+variantLabel: null
+taleType: null
+tags:
+  - exile
+  - return
+author: Anonymous (Middle Kingdom Egyptian)
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: null
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/Story_of_Sinuhe
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

@@ -1,0 +1,33 @@
+slug: the-painted-skin
+title: The Painted Skin
+form: prose
+genre: folklore
+timePeriod: Late 17th century (Qing dynasty)
+approxYear: 1680
+language: zh
+isOralTradition: false
+region:
+  name: Shandong, China
+  countryCode: CN
+  lat: 36.34
+  lng: 118.0
+cycle: liaozhai
+episode: null
+variantLabel: null
+taleType: null
+tags:
+  - ghost-story
+  - demons
+author: Pu Songling
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: null
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/Strange_Stories_from_a_Chinese_Studio
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

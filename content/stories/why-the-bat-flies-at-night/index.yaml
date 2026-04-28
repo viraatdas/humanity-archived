@@ -1,0 +1,33 @@
+slug: why-the-bat-flies-at-night
+title: Why the Bat Flies at Night
+form: prose
+genre: folklore
+timePeriod: Pre-1900 oral tradition (recorded c. 1910)
+approxYear: null
+language: oral
+isOralTradition: true
+region:
+  name: Southern Nigeria
+  countryCode: NG
+  lat: 6.46
+  lng: 7.55
+cycle: null
+episode: null
+variantLabel: null
+taleType: null
+tags:
+  - origin-story
+  - betrayal
+author: Efik / Ibibio oral tradition
+authorVisible: true
+collector: Elphinstone Dayrell (1910)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: Elphinstone Dayrell (1910)
+provenance:
+  kind: canon
+  source: gutenberg
+  sourceUrl: https://www.gutenberg.org/ebooks/34655
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

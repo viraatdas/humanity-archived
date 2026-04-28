@@ -1,0 +1,33 @@
+slug: momotaro
+title: Momotarō (The Peach Boy)
+form: prose
+genre: folklore
+timePeriod: Edo period (oral form much older)
+approxYear: 1700
+language: ja
+isOralTradition: true
+region:
+  name: Okayama, Japan
+  countryCode: JP
+  lat: 34.66
+  lng: 133.93
+cycle: null
+episode: null
+variantLabel: null
+taleType: null
+tags:
+  - hero-quest
+  - oni
+author: Japanese oral tradition
+authorVisible: true
+collector: Yei Theodora Ozaki (1903)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: Yei Theodora Ozaki (1903)
+provenance:
+  kind: canon
+  source: gutenberg
+  sourceUrl: https://en.wikisource.org/wiki/Japanese_Fairy_Tales
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z
