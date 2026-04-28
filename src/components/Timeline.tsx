@@ -56,19 +56,67 @@ export function Timeline({
     const ro = new ResizeObserver(update);
     ro.observe(el);
 
-    // Convert vertical wheel/trackpad gestures into horizontal scroll so
-    // a regular mouse wheel can scrub the timeline without shift+scroll.
+    // --- Wheel: convert vertical mouse-wheel into horizontal scrub.
     const onWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
-      if (e.deltaY === 0) return;
+      if (e.deltaY === 0 && e.deltaX === 0) return;
+      const delta =
+        Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (delta === 0) return;
       e.preventDefault();
-      el.scrollLeft += e.deltaY;
+      el.scrollLeft += delta;
     };
     el.addEventListener("wheel", onWheel, { passive: false });
+
+    // --- Pointer drag: click and drag the strip with a mouse.
+    let dragging = false;
+    let startX = 0;
+    let startScroll = 0;
+    let activePointerId: number | null = null;
+
+    const onPointerDown = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return; // native touch-scroll wins
+      if (e.button !== 0) return; // primary button only
+      dragging = true;
+      startX = e.clientX;
+      startScroll = el.scrollLeft;
+      activePointerId = e.pointerId;
+      try {
+        el.setPointerCapture(e.pointerId);
+      } catch {}
+      el.style.cursor = "grabbing";
+    };
+    const onPointerMove = (e: PointerEvent) => {
+      if (!dragging) return;
+      e.preventDefault();
+      const dx = e.clientX - startX;
+      el.scrollLeft = startScroll - dx;
+    };
+    const onPointerEnd = (e: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      el.style.cursor = "";
+      if (activePointerId !== null) {
+        try {
+          el.releasePointerCapture(activePointerId);
+        } catch {}
+        activePointerId = null;
+      }
+    };
+
+    el.addEventListener("pointerdown", onPointerDown);
+    el.addEventListener("pointermove", onPointerMove);
+    el.addEventListener("pointerup", onPointerEnd);
+    el.addEventListener("pointercancel", onPointerEnd);
+    el.addEventListener("pointerleave", onPointerEnd);
 
     return () => {
       ro.disconnect();
       el.removeEventListener("wheel", onWheel);
+      el.removeEventListener("pointerdown", onPointerDown);
+      el.removeEventListener("pointermove", onPointerMove);
+      el.removeEventListener("pointerup", onPointerEnd);
+      el.removeEventListener("pointercancel", onPointerEnd);
+      el.removeEventListener("pointerleave", onPointerEnd);
     };
   }, []);
 
