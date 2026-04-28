@@ -1,7 +1,7 @@
 import "server-only";
 import fs from "node:fs/promises";
 import path from "node:path";
-import matter from "gray-matter";
+import yaml from "js-yaml";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from "remark-gfm";
@@ -22,18 +22,40 @@ async function ensureDir() {
   }
 }
 
+async function loadStoryDir(dir: string): Promise<Story | null> {
+  const yamlPath = path.join(dir, "index.yaml");
+  let yamlRaw: string;
+  try {
+    yamlRaw = await fs.readFile(yamlPath, "utf8");
+  } catch {
+    return null;
+  }
+  const data = yaml.load(yamlRaw);
+  const fm = StoryFrontmatterSchema.parse(data);
+
+  const entries = await fs.readdir(dir);
+  const bodies: Record<string, string> = {};
+  await Promise.all(
+    entries
+      .filter((f) => f.endsWith(".md"))
+      .map(async (f) => {
+        const langCode = f.replace(/\.md$/, "");
+        const body = await fs.readFile(path.join(dir, f), "utf8");
+        bodies[langCode] = body;
+      }),
+  );
+
+  return { ...fm, bodies };
+}
+
 export async function listStories(): Promise<Story[]> {
   await ensureDir();
-  const entries = await fs.readdir(STORIES_DIR);
-  const files = entries.filter((f) => f.endsWith(".md"));
-  const stories = await Promise.all(
-    files.map(async (f) => {
-      const raw = await fs.readFile(path.join(STORIES_DIR, f), "utf8");
-      const { data, content } = matter(raw);
-      const fm = StoryFrontmatterSchema.parse(data);
-      return { ...fm, body: content };
-    }),
-  );
+  const entries = await fs.readdir(STORIES_DIR, { withFileTypes: true });
+  const dirs = entries
+    .filter((e) => e.isDirectory())
+    .map((e) => path.join(STORIES_DIR, e.name));
+  const loaded = await Promise.all(dirs.map(loadStoryDir));
+  const stories = loaded.filter((s): s is Story => s !== null);
   return stories.sort(
     (a, b) =>
       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
@@ -42,15 +64,14 @@ export async function listStories(): Promise<Story[]> {
 
 export async function getStory(slug: string): Promise<Story | null> {
   await ensureDir();
-  const filePath = path.join(STORIES_DIR, `${slug}.md`);
-  try {
-    const raw = await fs.readFile(filePath, "utf8");
-    const { data, content } = matter(raw);
-    const fm = StoryFrontmatterSchema.parse(data);
-    return { ...fm, body: content };
-  } catch {
-    return null;
-  }
+  return loadStoryDir(path.join(STORIES_DIR, slug));
+}
+
+export function pickBody(story: Story, preferredLang = "en"): string {
+  if (story.bodies[preferredLang]) return story.bodies[preferredLang];
+  if (story.bodies.en) return story.bodies.en;
+  const first = Object.values(story.bodies)[0];
+  return first ?? "";
 }
 
 export async function renderMarkdown(md: string): Promise<string> {

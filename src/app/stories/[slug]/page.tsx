@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getStory, renderMarkdown } from "@/lib/stories";
+import { getStory, pickBody, renderMarkdown } from "@/lib/stories";
 import { GENRE_COLORS, GENRE_LABELS } from "@/lib/genre-colors";
 
 export async function generateMetadata({
@@ -24,7 +24,7 @@ export default async function StoryPage({
   const story = await getStory(slug);
   if (!story) notFound();
 
-  const html = await renderMarkdown(story.body);
+  const html = await renderMarkdown(pickBody(story));
 
   return (
     <article className="mx-auto max-w-2xl pt-4">

@@ -1,10 +1,15 @@
 import "server-only";
 import { Octokit } from "@octokit/rest";
 
+export type StoryFile = {
+  path: string;
+  content: string;
+};
+
 export type StoryPRInput = {
   slug: string;
   title: string;
-  fileContent: string;
+  files: StoryFile[];
   submitterEmail: string;
   authorLabel: string;
 };
@@ -43,17 +48,19 @@ export async function openStoryPR(input: StoryPRInput): Promise<{
     sha: baseSha,
   });
 
-  const filePath = `content/stories/${input.slug}.md`;
-  const contentB64 = Buffer.from(input.fileContent, "utf8").toString("base64");
+  for (const file of input.files) {
+    const contentB64 = Buffer.from(file.content, "utf8").toString("base64");
+    await octokit.repos.createOrUpdateFileContents({
+      owner,
+      repo,
+      path: file.path,
+      branch,
+      message: `Submission: ${input.title} (${file.path})`,
+      content: contentB64,
+    });
+  }
 
-  await octokit.repos.createOrUpdateFileContents({
-    owner,
-    repo,
-    path: filePath,
-    branch,
-    message: `Submission: ${input.title}`,
-    content: contentB64,
-  });
+  const fileList = input.files.map((f) => `- \`${f.path}\``).join("\n");
 
   const { data: pr } = await octokit.pulls.create({
     owner,
@@ -67,7 +74,10 @@ export async function openStoryPR(input: StoryPRInput): Promise<{
       `**Author label:** ${input.authorLabel}`,
       `**Submitter email:** ${input.submitterEmail}`,
       ``,
-      `Review the file at \`${filePath}\` and merge to publish.`,
+      `Files:`,
+      fileList,
+      ``,
+      `Review and merge to publish.`,
     ].join("\n"),
   });
 

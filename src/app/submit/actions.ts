@@ -1,7 +1,7 @@
 "use server";
 
-import matter from "gray-matter";
-import { GENRES, type Genre } from "@/lib/schema";
+import yaml from "js-yaml";
+import { GENRES, type Genre, FORMS, type Form } from "@/lib/schema";
 import { findRegion } from "@/lib/regions";
 import { LANGUAGES } from "@/lib/languages";
 import { makeSlug } from "@/lib/slug";
@@ -14,7 +14,6 @@ export type SubmitResult =
 
 function resolveRegion(value: string) {
   if (!value) return null;
-  // Country code lookup
   if (value.length === 2 && value === value.toUpperCase()) {
     const r = findRegion(value);
     if (r) {
@@ -26,7 +25,6 @@ function resolveRegion(value: string) {
       };
     }
   }
-  // Custom typed region
   return { name: value };
 }
 
@@ -43,6 +41,7 @@ function resolveLanguage(value: string) {
 
 export async function submitStory(formData: FormData): Promise<SubmitResult> {
   const title = String(formData.get("title") ?? "").trim();
+  const formRaw = String(formData.get("form") ?? "prose").trim();
   const timePeriod = String(formData.get("timePeriod") ?? "").trim();
   const yearStr = String(formData.get("year") ?? "").trim();
   const era = String(formData.get("era") ?? "CE").toUpperCase();
@@ -51,6 +50,7 @@ export async function submitStory(formData: FormData): Promise<SubmitResult> {
   const authorRaw = String(formData.get("author") ?? "").trim();
   const authorVisible = formData.get("authorVisible") === "on";
   const languageRaw = String(formData.get("language") ?? "").trim();
+  const isOralTradition = formData.get("isOralTradition") === "on";
   const body = String(formData.get("body") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim();
 
@@ -61,12 +61,15 @@ export async function submitStory(formData: FormData): Promise<SubmitResult> {
   if (!genreRaw) return { ok: false, error: "Please pick a genre." };
   if (!languageRaw) return { ok: false, error: "Please pick the original language." };
   if (body.length < 20)
-    return { ok: false, error: "The story is a bit short — please add more." };
+    return { ok: false, error: "The story is a bit short. Please add more." };
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
     return { ok: false, error: "Please give a valid email." };
 
   if (!GENRES.includes(genreRaw as Genre)) {
     return { ok: false, error: "Invalid genre selection." };
+  }
+  if (!FORMS.includes(formRaw as Form)) {
+    return { ok: false, error: "Invalid form selection." };
   }
 
   const region = resolveRegion(regionRaw);
@@ -75,7 +78,7 @@ export async function submitStory(formData: FormData): Promise<SubmitResult> {
   const language = resolveLanguage(languageRaw);
   if (!language) return { ok: false, error: "Could not resolve language." };
 
-  let approxYear: number | undefined;
+  let approxYear: number | null = null;
   if (yearStr) {
     const y = Number(yearStr);
     if (!Number.isFinite(y) || y < 0)
@@ -83,27 +86,57 @@ export async function submitStory(formData: FormData): Promise<SubmitResult> {
     approxYear = era === "BCE" ? -y : y;
   }
 
-  const author = authorRaw.length > 0 ? authorRaw : undefined;
+  const author = authorRaw.length > 0 ? authorRaw : null;
   const slug = makeSlug(title);
   const createdAt = new Date().toISOString();
+  const langCode = isOralTradition ? "oral" : language.code;
 
   const frontmatter = {
-    title,
     slug,
+    title,
+    form: formRaw as Form,
+    genre: genreRaw as Genre,
     timePeriod,
     approxYear,
+    language: langCode,
+    isOralTradition,
     region,
-    genre: genreRaw,
+    cycle: null,
+    episode: null,
+    variantLabel: null,
+    taleType: null,
+    tags: [],
     author,
     authorVisible,
-    language: language.code,
-    languageName: language.name,
-    translations: [],
+    collector: null,
+    translator: null,
+    sourceTranslator: null,
+    provenance: {
+      kind: "submission",
+      source: "submission",
+      sourceUrl: null,
+      importedAt: createdAt,
+    },
+    media: [],
     license: "CC-BY-SA-4.0",
+    submittedByHash: null,
     createdAt,
   };
 
-  const fileContent = matter.stringify(body + "\n", frontmatter);
+  const yamlContent = yaml.dump(frontmatter, { lineWidth: 120 });
+  const bodyLang = isOralTradition ? "en" : language.code;
+
+  const files = [
+    {
+      path: `content/stories/${slug}/index.yaml`,
+      content: yamlContent,
+    },
+    {
+      path: `content/stories/${slug}/${bodyLang}.md`,
+      content: body + "\n",
+    },
+  ];
+
   const authorLabel = author
     ? authorVisible
       ? author
@@ -122,7 +155,7 @@ export async function submitStory(formData: FormData): Promise<SubmitResult> {
     const { prUrl } = await openStoryPR({
       slug,
       title,
-      fileContent,
+      files,
       submitterEmail: email,
       authorLabel,
     });
@@ -134,10 +167,11 @@ export async function submitStory(formData: FormData): Promise<SubmitResult> {
           `A new story has been submitted to the archive.`,
           ``,
           `Title: ${title}`,
-          `Time: ${timePeriod}${approxYear !== undefined ? ` (${Math.abs(approxYear)} ${approxYear < 0 ? "BCE" : "CE"})` : ""}`,
+          `Time: ${timePeriod}${approxYear !== null ? ` (${Math.abs(approxYear)} ${approxYear < 0 ? "BCE" : "CE"})` : ""}`,
           `Region: ${region.name}`,
           `Genre: ${genreRaw}`,
-          `Language: ${language.name} (${language.code})`,
+          `Form: ${formRaw}`,
+          `Language: ${language.name} (${langCode})`,
           `Author: ${authorLabel}`,
           `Submitter: ${email}`,
           ``,
