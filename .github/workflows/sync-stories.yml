@@ -1,0 +1,39 @@
+name: Sync stories to Postgres
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/stories/**"
+      - "db/schema.sql"
+      - "scripts/sync-stories.ts"
+      - "src/lib/embed.ts"
+      - "src/lib/db.ts"
+      - "src/lib/schema.ts"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Sync stories
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          EMBEDDING_PROVIDER: gemini
+        run: pnpm sync:stories

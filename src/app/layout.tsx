@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+import { SearchProvider } from "@/components/SearchProvider";
+import { SearchBar } from "@/components/SearchBar";
+import { SearchPalette } from "@/components/SearchPalette";
 
 const themeInitScript = `(function(){try{var t=localStorage.getItem('ha-theme');if(!t||['paper','white','ink'].indexOf(t)===-1)t='paper';document.documentElement.dataset.theme=t;}catch(e){document.documentElement.dataset.theme='paper';}})();`;
 
@@ -61,9 +64,12 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <SiteHeader />
-        <main className="mx-auto px-5 pb-20 sm:px-6 sm:pb-24">{children}</main>
-        <SiteFooter />
+        <SearchProvider>
+          <SiteHeader />
+          <main className="mx-auto px-5 pb-20 sm:px-6 sm:pb-24">{children}</main>
+          <SiteFooter />
+          <SearchPalette />
+        </SearchProvider>
       </body>
     </html>
   );
@@ -80,9 +86,10 @@ function SiteHeader() {
         Humanity Archived
       </Link>
       <div
-        className="flex items-center gap-4 sm:gap-6"
+        className="flex items-center gap-3 sm:gap-5"
         style={{ color: "var(--color-ink-soft)" }}
       >
+        <SearchBar />
         <nav className="flex gap-4 text-sm sm:gap-6">
           <Link href="/" style={{ textDecoration: "none" }}>Archive</Link>
           <Link href="/submit" style={{ textDecoration: "none" }}>Contribute</Link>

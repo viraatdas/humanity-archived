@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "sync:stories": "tsx scripts/sync-stories.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1038.0",
@@ -25,6 +26,7 @@
     "js-yaml": "^4.1.1",
     "lucide-react": "^0.469.0",
     "next": "15.5.15",
+    "pg": "^8.20.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-simple-maps": "^3.0.0",
@@ -47,13 +49,16 @@
     "@tailwindcss/postcss": "^4.0.0",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.10.6",
+    "@types/pg": "^8.20.0",
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
     "@types/react-simple-maps": "^3.0.6",
+    "dotenv": "^17.4.2",
     "eslint": "^9.18.0",
     "eslint-config-next": "15.5.15",
     "postcss": "^8.5.1",
     "tailwindcss": "^4.0.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.7.3"
   }
 }
