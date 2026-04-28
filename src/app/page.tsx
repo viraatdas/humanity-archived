@@ -3,7 +3,7 @@ import { listStories } from "@/lib/stories";
 import { GENRES } from "@/lib/schema";
 import { genreDotClass, GENRE_LABELS } from "@/lib/genre-colors";
 import type { Genre } from "@/lib/schema";
-import { Constellation } from "@/components/Constellation";
+import WorldMap from "@/components/WorldMap";
 
 export default async function Home() {
   const stories = await listStories();
@@ -27,7 +27,7 @@ export default async function Home() {
         </p>
       </section>
 
-      {stories.length > 0 && <Constellation stories={stories} />}
+      {stories.length > 0 && <WorldMap stories={stories} />}
 
       <section className="border-t pt-8" style={{ borderColor: "var(--color-rule)" }}>
         <div className="flex flex-wrap items-baseline justify-between gap-4">
