@@ -56,6 +56,47 @@ export function Timeline({
     const ro = new ResizeObserver(update);
     ro.observe(el);
 
+    // --- Momentum state shared by drag + wheel.
+    let momentumRaf: number | null = null;
+    let velocity = 0; // px per ms, positive = scrolling rightward
+
+    function cancelMomentum() {
+      if (momentumRaf !== null) {
+        cancelAnimationFrame(momentumRaf);
+        momentumRaf = null;
+      }
+      velocity = 0;
+    }
+
+    function startMomentum() {
+      if (Math.abs(velocity) < 0.08) {
+        velocity = 0;
+        return;
+      }
+      // Clamp so an aggressive flick doesn't shoot off into geological time.
+      velocity = Math.max(-3.5, Math.min(3.5, velocity));
+      let last = performance.now();
+      const tick = (now: number) => {
+        const dt = now - last;
+        last = now;
+        el.scrollLeft += velocity * dt;
+        // Half-life ≈ 300 ms.
+        velocity *= Math.pow(0.997, dt);
+        // Stop on ends.
+        const max = el.scrollWidth - el.clientWidth;
+        if (el.scrollLeft <= 0 || el.scrollLeft >= max) {
+          velocity = 0;
+        }
+        if (Math.abs(velocity) < 0.02) {
+          velocity = 0;
+          momentumRaf = null;
+          return;
+        }
+        momentumRaf = requestAnimationFrame(tick);
+      };
+      momentumRaf = requestAnimationFrame(tick);
+    }
+
     // --- Wheel: convert vertical mouse-wheel into horizontal scrub.
     const onWheel = (e: WheelEvent) => {
       if (e.deltaY === 0 && e.deltaX === 0) return;
@@ -63,22 +104,28 @@ export function Timeline({
         Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
       if (delta === 0) return;
       e.preventDefault();
+      cancelMomentum();
       el.scrollLeft += delta;
     };
     el.addEventListener("wheel", onWheel, { passive: false });
 
-    // --- Pointer drag: click and drag the strip with a mouse.
+    // --- Pointer drag with momentum on release.
     let dragging = false;
     let startX = 0;
     let startScroll = 0;
     let activePointerId: number | null = null;
+    let lastMoveTime = 0;
+    let lastMoveX = 0;
 
     const onPointerDown = (e: PointerEvent) => {
       if (e.pointerType === "touch") return; // native touch-scroll wins
       if (e.button !== 0) return; // primary button only
+      cancelMomentum();
       dragging = true;
       startX = e.clientX;
       startScroll = el.scrollLeft;
+      lastMoveTime = e.timeStamp;
+      lastMoveX = e.clientX;
       activePointerId = e.pointerId;
       try {
         el.setPointerCapture(e.pointerId);
@@ -90,8 +137,19 @@ export function Timeline({
       e.preventDefault();
       const dx = e.clientX - startX;
       el.scrollLeft = startScroll - dx;
+      // Track instantaneous velocity from the last frame.
+      const dt = e.timeStamp - lastMoveTime;
+      if (dt > 0) {
+        const frameDx = e.clientX - lastMoveX;
+        // Negate: dragging the strip rightward scrolls the view leftward.
+        const instant = -frameDx / dt;
+        // Smooth via EMA so a single jittery frame doesn't dominate.
+        velocity = velocity * 0.6 + instant * 0.4;
+      }
+      lastMoveTime = e.timeStamp;
+      lastMoveX = e.clientX;
     };
-    const onPointerEnd = (e: PointerEvent) => {
+    const onPointerEnd = () => {
       if (!dragging) return;
       dragging = false;
       el.style.cursor = "";
@@ -101,6 +159,7 @@ export function Timeline({
         } catch {}
         activePointerId = null;
       }
+      startMomentum();
     };
 
     el.addEventListener("pointerdown", onPointerDown);
@@ -111,6 +170,7 @@ export function Timeline({
 
     return () => {
       ro.disconnect();
+      cancelMomentum();
       el.removeEventListener("wheel", onWheel);
       el.removeEventListener("pointerdown", onPointerDown);
       el.removeEventListener("pointermove", onPointerMove);
