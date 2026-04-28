@@ -498,62 +498,120 @@ a:hover {
 }
 .worldmap-frame svg { display: block; }
 
-.worldmap-timeline {
-  margin-top: 1.25rem;
-  padding: 0 0.5rem;
+/* ---- Timeline scrubber ---- */
+.hatime {
+  margin-top: 1.5rem;
 }
-.worldmap-year {
+.hatime-readout {
   font-family: var(--font-serif);
-  font-size: 1.4rem;
+  font-size: 1.55rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   color: var(--color-ink);
   text-align: center;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.8rem;
 }
-.worldmap-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 4px;
+.hatime-frame {
+  position: relative;
+  height: 78px;
+  border-top: 1px solid var(--color-rule);
+  border-bottom: 1px solid var(--color-rule);
+  background: var(--color-surface-soft);
+  user-select: none;
+}
+.hatime-viewport {
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 36px,
+    black calc(100% - 36px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    black 36px,
+    black calc(100% - 36px),
+    transparent 100%
+  );
+}
+.hatime-viewport::-webkit-scrollbar { display: none; }
+.hatime-viewport:active { cursor: grabbing; }
+.hatime-inner {
+  position: relative;
+  height: 100%;
+}
+.hatime-tick {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 12px;
   background: var(--color-rule);
-  border-radius: 9999px;
-  outline: none;
-  cursor: pointer;
 }
-.worldmap-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  background: var(--color-ink);
-  border: 2px solid var(--color-paper);
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+.hatime-tick-major {
+  height: 22px;
+  background: var(--color-ink-soft);
+  opacity: 0.55;
 }
-.worldmap-slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  background: var(--color-ink);
-  border: 2px solid var(--color-paper);
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-}
-.worldmap-slider::-webkit-slider-thumb:hover { transform: scale(1.1); }
-.worldmap-slider:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.08);
-}
-.worldmap-ticks {
-  display: flex;
-  justify-content: space-between;
+.hatime-tick-label {
+  position: absolute;
+  top: 26px;
+  left: 50%;
+  transform: translateX(-50%);
   font-family: var(--font-serif);
   font-size: 0.72rem;
-  font-style: italic;
   color: var(--color-ink-soft);
-  margin-top: 0.55rem;
-  padding: 0 0.1rem;
+  font-style: italic;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.hatime-bracket {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+.hatime-bracket-band {
+  width: 56px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in srgb, var(--color-accent) 9%, transparent) 50%,
+    transparent
+  );
+}
+.hatime-bracket-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-ink);
+}
+.hatime-bracket-line-left { left: calc(50% - 28px); }
+.hatime-bracket-line-right { left: calc(50% + 28px); }
+.hatime-help {
+  margin-top: 0.6rem;
+  font-family: var(--font-serif);
+  font-size: 0.72rem;
+  color: var(--color-ink-soft);
+  font-style: italic;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .hatime-readout { font-size: 1.3rem; }
+  .hatime-bracket-band { width: 44px; }
+  .hatime-bracket-line-left { left: calc(50% - 22px); }
+  .hatime-bracket-line-right { left: calc(50% + 22px); }
 }
 
 /* ---- Constellation (region × time) — kept for reference, no longer used ---- */

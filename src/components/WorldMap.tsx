@@ -9,6 +9,7 @@ import {
   Marker,
 } from "react-simple-maps";
 import type { Story } from "@/lib/schema";
+import { Timeline } from "./Timeline";
 
 const TOPO_URL =
   "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
@@ -137,26 +138,12 @@ export default function WorldMap({ stories }: { stories: Story[] }) {
         </ComposableMap>
       </div>
 
-      <div className="worldmap-timeline">
-        <div className="worldmap-year">{yearLabel(year)}</div>
-        <input
-          type="range"
-          min={-3000}
-          max={2025}
-          step={50}
-          value={year}
-          onChange={(e) => setYear(parseInt(e.target.value, 10))}
-          className="worldmap-slider"
-          aria-label="Year"
-        />
-        <div className="worldmap-ticks">
-          <span>3000 BCE</span>
-          <span>1500 BCE</span>
-          <span>0</span>
-          <span>1000 CE</span>
-          <span>now</span>
-        </div>
-      </div>
+      <Timeline
+        minYear={-3000}
+        maxYear={2025}
+        initialYear={0}
+        onYearChange={setYear}
+      />
     </section>
   );
 }
