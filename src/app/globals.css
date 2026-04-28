@@ -287,8 +287,56 @@ body.submit-page .ha-era-toggle {
   height: 0;
 }
 .ha-prose ::selection { background: #f1e7d0; }
-.ha-prose-hint {
+.ha-prose img.ha-editor-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 1.4em auto;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.ha-prose img.ha-editor-img.ProseMirror-selectednode {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+.ha-prose-foot {
   margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.ha-prose-imgbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--color-ink);
+  background: transparent;
+  border: 1px solid var(--color-rule);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  cursor: pointer;
+  font-family: var(--font-serif);
+}
+.ha-prose-imgbtn:hover {
+  border-color: var(--color-ink);
+}
+.ha-prose-status {
+  margin-top: 0.5rem;
+  font-size: 0.78rem;
+  color: var(--color-ink-soft);
+  font-style: italic;
+}
+.ha-prose-error {
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--color-accent);
+}
+.ha-prose-hint {
+  flex: 1 1 16rem;
   font-size: 0.78rem;
   color: var(--color-ink-soft);
   letter-spacing: 0.01em;

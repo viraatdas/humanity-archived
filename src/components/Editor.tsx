@@ -5,8 +5,9 @@ import { BubbleMenu } from "@tiptap/react/menus";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Placeholder from "@tiptap/extension-placeholder";
+import Image from "@tiptap/extension-image";
 import { Markdown } from "tiptap-markdown";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   value: string;
@@ -17,6 +18,9 @@ type Props = {
 export function Editor({ value, onChange, placeholder }: Props) {
   const [linkOpen, setLinkOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState("");
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [uploadingCount, setUploadingCount] = useState(0);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const editor = useEditor({
     extensions: [
@@ -28,6 +32,10 @@ export function Editor({ value, onChange, placeholder }: Props) {
       Link.configure({
         openOnClick: false,
         HTMLAttributes: { class: "ha-editor-link" },
+      }),
+      Image.configure({
+        HTMLAttributes: { class: "ha-editor-img" },
+        allowBase64: false,
       }),
       Placeholder.configure({
         placeholder: placeholder ?? "Begin the story…",
@@ -45,9 +53,60 @@ export function Editor({ value, onChange, placeholder }: Props) {
       attributes: {
         class: "ha-prose focus:outline-none",
       },
+      handlePaste: (_view, event) => {
+        const files = imagesFromDataTransfer(event.clipboardData);
+        if (files.length === 0) return false;
+        event.preventDefault();
+        files.forEach((f) => uploadAndInsert(f));
+        return true;
+      },
+      handleDrop: (_view, event) => {
+        if (!(event instanceof DragEvent)) return false;
+        const files = imagesFromDataTransfer(event.dataTransfer);
+        if (files.length === 0) return false;
+        event.preventDefault();
+        files.forEach((f) => uploadAndInsert(f));
+        return true;
+      },
     },
     immediatelyRender: false,
   });
+
+  async function uploadAndInsert(file: File) {
+    if (!editor) return;
+    setUploadError(null);
+    setUploadingCount((n) => n + 1);
+    try {
+      const fd = new FormData();
+      fd.set("file", file);
+      const res = await fetch("/api/upload", { method: "POST", body: fd });
+      const data: { ok: boolean; url?: string; error?: string } = await res.json();
+      if (!data.ok || !data.url) {
+        throw new Error(data.error ?? `Upload failed (${res.status})`);
+      }
+      editor
+        .chain()
+        .focus()
+        .setImage({ src: data.url, alt: file.name.replace(/\.[^/.]+$/, "") })
+        .run();
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : "Image upload failed");
+    } finally {
+      setUploadingCount((n) => Math.max(0, n - 1));
+    }
+  }
+
+  function pickFromDisk() {
+    fileInputRef.current?.click();
+  }
+
+  async function onFilePicked(e: React.ChangeEvent<HTMLInputElement>) {
+    const list = e.target.files;
+    if (!list || list.length === 0) return;
+    const files = Array.from(list).filter((f) => f.type.startsWith("image/"));
+    files.forEach((f) => uploadAndInsert(f));
+    e.target.value = "";
+  }
 
   useEffect(() => {
     if (!editor) return;
@@ -136,6 +195,13 @@ export function Editor({ value, onChange, placeholder }: Props) {
               >
                 <LinkIcon />
               </BubbleButton>
+              <BubbleButton
+                active={false}
+                onClick={pickFromDisk}
+                label="Insert image"
+              >
+                <ImageIcon />
+              </BubbleButton>
             </>
           ) : (
             <div className="ha-bubble-link">
@@ -165,11 +231,41 @@ export function Editor({ value, onChange, placeholder }: Props) {
 
       <EditorContent editor={editor} />
 
-      <p className="ha-prose-hint">
-        Select any text to format it. Markdown shortcuts work too —
-        <code>**bold**</code>, <code>*italic*</code>,{" "}
-        <code>## heading</code>, <code>&gt; quote</code>.
-      </p>
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={onFilePicked}
+        style={{ display: "none" }}
+      />
+
+      <div className="ha-prose-foot">
+        <p className="ha-prose-hint">
+          Select text to format. Paste or drop an image to insert it.
+          Markdown shortcuts work too — <code>**bold**</code>,{" "}
+          <code>*italic*</code>, <code>## heading</code>,{" "}
+          <code>&gt; quote</code>.
+        </p>
+        <button
+          type="button"
+          onClick={pickFromDisk}
+          className="ha-prose-imgbtn"
+        >
+          <ImageIcon /> Add image
+        </button>
+      </div>
+
+      {uploadingCount > 0 && (
+        <p className="ha-prose-status">
+          Uploading {uploadingCount} image{uploadingCount > 1 ? "s" : ""}…
+        </p>
+      )}
+      {uploadError && (
+        <p className="ha-prose-error" role="alert">
+          {uploadError}
+        </p>
+      )}
     </div>
   );
 }
@@ -194,6 +290,47 @@ function BubbleButton({
     >
       {children}
     </button>
+  );
+}
+
+function imagesFromDataTransfer(
+  dt: DataTransfer | null,
+): File[] {
+  if (!dt) return [];
+  const files: File[] = [];
+  if (dt.files && dt.files.length > 0) {
+    for (const f of Array.from(dt.files)) {
+      if (f.type.startsWith("image/")) files.push(f);
+    }
+  }
+  if (files.length === 0 && dt.items) {
+    for (const item of Array.from(dt.items)) {
+      if (item.kind === "file" && item.type.startsWith("image/")) {
+        const f = item.getAsFile();
+        if (f) files.push(f);
+      }
+    }
+  }
+  return files;
+}
+
+function ImageIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <circle cx="9" cy="9" r="1.6" />
+      <path d="M21 15l-5-5L5 21" />
+    </svg>
   );
 }
 
