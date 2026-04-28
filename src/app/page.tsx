@@ -3,6 +3,7 @@ import { listStories } from "@/lib/stories";
 import { GENRES } from "@/lib/schema";
 import { genreDotClass, GENRE_LABELS } from "@/lib/genre-colors";
 import type { Genre } from "@/lib/schema";
+import { Constellation } from "@/components/Constellation";
 
 export default async function Home() {
   const stories = await listStories();
@@ -25,6 +26,8 @@ export default async function Home() {
           <Link href="/about">Read the note &rarr;</Link>
         </p>
       </section>
+
+      {stories.length > 0 && <Constellation stories={stories} />}
 
       <section className="border-t pt-8" style={{ borderColor: "var(--color-rule)" }}>
         <div className="flex flex-wrap items-baseline justify-between gap-4">
