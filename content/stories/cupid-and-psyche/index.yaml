@@ -1,0 +1,33 @@
+slug: cupid-and-psyche
+title: Cupid and Psyche
+form: prose
+genre: mythology
+timePeriod: 2nd century CE
+approxYear: 160
+language: la
+isOralTradition: false
+region:
+  name: Roman world (Greco-Roman tradition)
+  countryCode: IT
+  lat: 41.89
+  lng: 12.49
+cycle: null
+episode: null
+variantLabel: null
+taleType: ATU 425B
+tags:
+  - love
+  - trial
+author: Apuleius
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: null
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/The_Golden_Ass
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

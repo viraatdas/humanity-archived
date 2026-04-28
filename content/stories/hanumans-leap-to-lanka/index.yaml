@@ -1,0 +1,33 @@
+slug: hanumans-leap-to-lanka
+title: Hanuman's Leap to Lanka
+form: verse
+genre: epic
+timePeriod: c. 5th century BCE - 5th century CE (composition); set in legendary period
+approxYear: -500
+language: sa
+isOralTradition: false
+region:
+  name: Southern India to Sri Lanka
+  countryCode: IN
+  lat: 9.93
+  lng: 78.12
+cycle: ramayana
+episode: hanumans-leap
+variantLabel: null
+taleType: null
+tags:
+  - devotion
+  - hero-quest
+author: Vālmīki (traditional)
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: Ralph T.H. Griffith (1870-1874)
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/The_R%C3%A1m%C3%A1yan_of_V%C3%A1lm%C3%ADki
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

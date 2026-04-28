@@ -1,0 +1,33 @@
+slug: houyi-shoots-the-suns
+title: Houyi Shoots Down the Nine Suns
+form: prose
+genre: mythology
+timePeriod: Ancient Chinese oral tradition (recorded in classical texts)
+approxYear: -200
+language: zh
+isOralTradition: true
+region:
+  name: China (legendary period)
+  countryCode: CN
+  lat: 35.86
+  lng: 104.2
+cycle: null
+episode: null
+variantLabel: null
+taleType: null
+tags:
+  - hero-archer
+  - cosmic-order
+author: Chinese oral tradition
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: null
+provenance:
+  kind: canon
+  source: oral-tradition
+  sourceUrl: null
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

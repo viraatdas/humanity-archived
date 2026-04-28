@@ -1,0 +1,33 @@
+slug: vasilisa-the-beautiful
+title: Vasilisa the Beautiful
+form: prose
+genre: folklore
+timePeriod: Russian oral tradition (recorded 19th century)
+approxYear: 1860
+language: ru
+isOralTradition: true
+region:
+  name: Russia
+  countryCode: RU
+  lat: 61.52
+  lng: 105.32
+cycle: null
+episode: null
+variantLabel: null
+taleType: ATU 480
+tags:
+  - baba-yaga
+  - magic-helper
+author: Russian oral tradition
+authorVisible: true
+collector: Alexander Afanasyev (1860s)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: Leonard Magnus (1916)
+provenance:
+  kind: canon
+  source: gutenberg
+  sourceUrl: https://www.gutenberg.org/ebooks/22373
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

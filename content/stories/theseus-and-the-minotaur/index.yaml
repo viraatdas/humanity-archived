@@ -1,0 +1,33 @@
+slug: theseus-and-the-minotaur
+title: Theseus and the Minotaur
+form: prose
+genre: mythology
+timePeriod: c. Bronze Age (mythic); recorded by Plutarch and Apollodorus
+approxYear: -1300
+language: grc
+isOralTradition: false
+region:
+  name: Crete and Athens
+  countryCode: GR
+  lat: 35.34
+  lng: 25.13
+cycle: theseus
+episode: minotaur
+variantLabel: null
+taleType: null
+tags:
+  - hero-quest
+  - labyrinth
+author: Greek tradition (recorded by Apollodorus and Plutarch)
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: null
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/The_Library_(Apollodorus)
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

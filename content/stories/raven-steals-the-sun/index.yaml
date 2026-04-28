@@ -1,0 +1,33 @@
+slug: raven-steals-the-sun
+title: Raven Steals the Sun
+form: prose
+genre: mythology
+timePeriod: Pre-contact Pacific Northwest oral tradition (recorded 19th and 20th century)
+approxYear: null
+language: oral
+isOralTradition: true
+region:
+  name: Pacific Northwest Coast (Tlingit / Haida)
+  countryCode: US
+  lat: 57.05
+  lng: -135.33
+cycle: null
+episode: null
+variantLabel: null
+taleType: null
+tags:
+  - trickster
+  - origin-of-light
+author: Tlingit and Haida oral tradition
+authorVisible: true
+collector: John R. Swanton (1909)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: John R. Swanton (1909)
+provenance:
+  kind: canon
+  source: bureau-of-american-ethnology
+  sourceUrl: https://en.wikisource.org/wiki/Tlingit_Myths_and_Texts
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

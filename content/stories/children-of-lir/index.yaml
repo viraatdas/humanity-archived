@@ -1,0 +1,33 @@
+slug: children-of-lir
+title: The Children of Lir
+form: prose
+genre: mythology
+timePeriod: Pre-Christian Irish oral tradition (recorded medieval period)
+approxYear: 1000
+language: ga
+isOralTradition: true
+region:
+  name: Ireland
+  countryCode: IE
+  lat: 53.41
+  lng: -8.24
+cycle: null
+episode: null
+variantLabel: null
+taleType: null
+tags:
+  - transformation
+  - sorrow
+author: Irish oral tradition
+authorVisible: true
+collector: P.W. Joyce (1879)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: P.W. Joyce (1879)
+provenance:
+  kind: canon
+  source: gutenberg
+  sourceUrl: https://www.gutenberg.org/ebooks/16464
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

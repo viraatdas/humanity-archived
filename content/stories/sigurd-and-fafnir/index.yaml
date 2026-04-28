@@ -1,0 +1,33 @@
+slug: sigurd-and-fafnir
+title: Sigurd and Fáfnir
+form: prose
+genre: epic
+timePeriod: Pre-Christian Germanic oral tradition (recorded 13th century)
+approxYear: 1270
+language: non
+isOralTradition: true
+region:
+  name: Scandinavia / Continental Germanic tradition
+  countryCode: IS
+  lat: 64.96
+  lng: -19.02
+cycle: volsunga
+episode: dragon-slaying
+variantLabel: null
+taleType: null
+tags:
+  - dragon
+  - heroic-quest
+author: Norse oral tradition
+authorVisible: true
+collector: William Morris (1888)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: William Morris and Eiríkr Magnússon (1888)
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/V%C3%B6lsunga_saga
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

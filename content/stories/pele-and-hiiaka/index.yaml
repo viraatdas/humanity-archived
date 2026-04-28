@@ -1,0 +1,34 @@
+slug: pele-and-hiiaka
+title: Pele and Hiʻiaka
+form: prose
+genre: mythology
+timePeriod: Pre-contact Hawaiian oral tradition (recorded 19th and early 20th century)
+approxYear: null
+language: oral
+isOralTradition: true
+region:
+  name: Hawaiʻi (the Big Island, Kīlauea)
+  countryCode: US
+  lat: 19.42
+  lng: -155.29
+cycle: null
+episode: null
+variantLabel: null
+taleType: null
+tags:
+  - volcano
+  - sisters
+  - love
+author: Hawaiian oral tradition
+authorVisible: true
+collector: Nathaniel Bright Emerson (1915)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: Nathaniel Bright Emerson (1915)
+provenance:
+  kind: canon
+  source: gutenberg
+  sourceUrl: https://www.gutenberg.org/ebooks/22675
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

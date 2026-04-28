@@ -1,0 +1,33 @@
+slug: princess-kaguya
+title: The Tale of the Bamboo Cutter (Princess Kaguya)
+form: prose
+genre: folklore
+timePeriod: c. 9th-10th century (earliest extant Japanese narrative tale)
+approxYear: 909
+language: ja
+isOralTradition: false
+region:
+  name: Japan
+  countryCode: JP
+  lat: 35.36
+  lng: 138.73
+cycle: null
+episode: null
+variantLabel: null
+taleType: null
+tags:
+  - moon
+  - otherworldly-bride
+author: Anonymous (Heian-period Japan)
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: F.V. Dickins (1888)
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/The_Old_Bamboo-Hewer%27s_Story
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

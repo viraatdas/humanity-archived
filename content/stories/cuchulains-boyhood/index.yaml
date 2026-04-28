@@ -1,0 +1,32 @@
+slug: cuchulains-boyhood
+title: How Cú Chulainn Got His Name
+form: prose
+genre: mythology
+timePeriod: Pre-Christian Irish oral tradition (recorded 7th-12th century)
+approxYear: 800
+language: ga
+isOralTradition: true
+region:
+  name: Ulster, Ireland
+  countryCode: IE
+  lat: 54.61
+  lng: -6.69
+cycle: ulster
+episode: naming
+variantLabel: null
+taleType: null
+tags:
+  - hero-origin
+author: Irish oral tradition
+authorVisible: true
+collector: Lady Augusta Gregory (1902)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: Lady Augusta Gregory (1902)
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/Cuchulain_of_Muirthemne
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

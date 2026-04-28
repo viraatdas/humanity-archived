@@ -1,0 +1,34 @@
+slug: rostam-and-sohrab
+title: Rostam and Sohrab
+form: verse
+genre: epic
+timePeriod: c. 1010 CE (Shahnameh); legendary period
+approxYear: 1010
+language: fa
+isOralTradition: false
+region:
+  name: Persia (Iran), legendary geography
+  countryCode: IR
+  lat: 32.43
+  lng: 53.69
+cycle: shahnameh
+episode: rostam-sohrab
+variantLabel: null
+taleType: null
+tags:
+  - epic
+  - father-son
+  - tragedy
+author: Ferdowsi
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: Arthur and Edmond Warner (1909)
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/The_Sh%C3%A1hn%C3%A1ma_of_Firdaus%C3%AD
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

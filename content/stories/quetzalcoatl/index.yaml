@@ -1,0 +1,34 @@
+slug: quetzalcoatl
+title: Quetzalcoatl Goes to the Land of the Dead
+form: prose
+genre: mythology
+timePeriod: Pre-Columbian Aztec tradition (recorded 16th century)
+approxYear: 1450
+language: nah
+isOralTradition: true
+region:
+  name: Central Mexico (Aztec)
+  countryCode: MX
+  lat: 19.43
+  lng: -99.13
+cycle: null
+episode: null
+variantLabel: null
+taleType: null
+tags:
+  - creation
+  - underworld
+  - culture-hero
+author: Aztec oral tradition (recorded by Bernardino de Sahagún and others)
+authorVisible: true
+collector: Bernardino de Sahagún (16th century)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: Lewis Spence (1913)
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/The_Myths_of_Mexico_%26_Peru
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

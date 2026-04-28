@@ -1,0 +1,34 @@
+slug: the-little-mermaid
+title: The Little Mermaid
+form: prose
+genre: folklore
+timePeriod: "1837"
+approxYear: 1837
+language: da
+isOralTradition: false
+region:
+  name: Denmark
+  countryCode: DK
+  lat: 56.26
+  lng: 9.5
+cycle: andersen
+episode: null
+variantLabel: null
+taleType: null
+tags:
+  - sea
+  - sacrifice
+  - love
+author: Hans Christian Andersen
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: H.P. Paull (1872)
+provenance:
+  kind: canon
+  source: gutenberg
+  sourceUrl: https://www.gutenberg.org/ebooks/27200
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

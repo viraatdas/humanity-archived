@@ -1,0 +1,33 @@
+slug: sky-woman-falls
+title: Sky Woman Falls
+form: prose
+genre: mythology
+timePeriod: Pre-contact Haudenosaunee oral tradition
+approxYear: null
+language: oral
+isOralTradition: true
+region:
+  name: Northeast Woodlands (Haudenosaunee / Iroquois)
+  countryCode: US
+  lat: 43.0
+  lng: -76.0
+cycle: null
+episode: null
+variantLabel: null
+taleType: null
+tags:
+  - creation-myth
+  - turtle-island
+author: Haudenosaunee oral tradition
+authorVisible: true
+collector: J.N.B. Hewitt (1903, 1928)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: J.N.B. Hewitt (1903)
+provenance:
+  kind: canon
+  source: bureau-of-american-ethnology
+  sourceUrl: https://en.wikisource.org/wiki/Iroquoian_Cosmology
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

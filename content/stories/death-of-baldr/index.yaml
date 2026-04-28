@@ -1,0 +1,33 @@
+slug: death-of-baldr
+title: The Death of Baldr
+form: prose
+genre: mythology
+timePeriod: Pre-Christian Norse oral tradition (recorded 13th century)
+approxYear: 1220
+language: non
+isOralTradition: true
+region:
+  name: Iceland (recorded); Scandinavian tradition
+  countryCode: IS
+  lat: 64.96
+  lng: -19.02
+cycle: eddas
+episode: death-of-baldr
+variantLabel: null
+taleType: null
+tags:
+  - norse-myth
+  - prelude-to-ragnarok
+author: Norse oral tradition (recorded by Snorri Sturluson)
+authorVisible: true
+collector: Snorri Sturluson (c. 1220)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: Arthur Gilchrist Brodeur (1916)
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/The_Prose_Edda_(1916)
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

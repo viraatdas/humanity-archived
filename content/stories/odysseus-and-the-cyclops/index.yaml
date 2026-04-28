@@ -1,0 +1,33 @@
+slug: odysseus-and-the-cyclops
+title: Odysseus and the Cyclops
+form: prose
+genre: epic
+timePeriod: c. 8th century BCE (composition); set in the post-Trojan-War period
+approxYear: -750
+language: grc
+isOralTradition: false
+region:
+  name: Aegean Sea (mythic island of the Cyclopes)
+  countryCode: GR
+  lat: 38.0
+  lng: 24.0
+cycle: odyssey
+episode: cyclops
+variantLabel: null
+taleType: null
+tags:
+  - hero-quest
+  - cunning
+author: Homer (traditional)
+authorVisible: true
+collector: null
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: null
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/The_Odyssey_(Butler)
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

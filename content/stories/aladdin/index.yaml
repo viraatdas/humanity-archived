@@ -1,0 +1,34 @@
+slug: aladdin
+title: Aladdin and the Wonderful Lamp
+form: prose
+genre: folklore
+timePeriod: Manuscript inserted into 1001 Nights tradition c. 1709
+approxYear: 1709
+language: ar
+isOralTradition: false
+region:
+  name: Mythical China of the 1001 Nights tradition (Levantine origin)
+  countryCode: SY
+  lat: 33.51
+  lng: 36.29
+cycle: nights
+episode: null
+variantLabel: null
+taleType: ATU 561
+tags:
+  - magic-lamp
+  - genie
+  - poor-to-king
+author: Anonymous (1001 Nights tradition; recorded by Antoine Galland from Hanna Diyab)
+authorVisible: true
+collector: Antoine Galland (1709-1717)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: Andrew Lang (1898)
+provenance:
+  kind: canon
+  source: gutenberg
+  sourceUrl: https://www.gutenberg.org/ebooks/128
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z

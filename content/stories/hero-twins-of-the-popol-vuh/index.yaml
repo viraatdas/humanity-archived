@@ -1,0 +1,34 @@
+slug: hero-twins-of-the-popol-vuh
+title: The Hero Twins
+form: prose
+genre: mythology
+timePeriod: Pre-Columbian Maya tradition (recorded mid-16th century)
+approxYear: 1550
+language: quc
+isOralTradition: true
+region:
+  name: Highland Guatemala (K'iche' Maya)
+  countryCode: GT
+  lat: 15.49
+  lng: -91.42
+cycle: popol-vuh
+episode: hero-twins
+variantLabel: null
+taleType: null
+tags:
+  - twins
+  - underworld
+  - ball-game
+author: K'iche' Maya tradition
+authorVisible: true
+collector: Anonymous K'iche' authors (mid-16th century)
+translator: anthropic/claude-opus-4.7 (2026-04-27)
+sourceTranslator: Lewis Spence (1908)
+provenance:
+  kind: canon
+  source: wikisource
+  sourceUrl: https://en.wikisource.org/wiki/The_Popol_Vuh
+  importedAt: 2026-04-27T00:00:00Z
+media: []
+license: Public Domain
+createdAt: 2026-04-27T00:00:00Z
