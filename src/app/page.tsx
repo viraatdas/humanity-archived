@@ -5,8 +5,19 @@ import { genreDotClass, GENRE_LABELS } from "@/lib/genre-colors";
 import type { Genre } from "@/lib/schema";
 import WorldMap from "@/components/WorldMap";
 
-export default async function Home() {
-  const stories = await listStories();
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ genre?: string }>;
+}) {
+  const { genre: genreParam } = await searchParams;
+  const activeGenre = (GENRES as readonly string[]).includes(genreParam ?? "")
+    ? (genreParam as Genre)
+    : null;
+  const allStories = await listStories();
+  const stories = activeGenre
+    ? allStories.filter((s) => s.genre === activeGenre)
+    : allStories;
 
   return (
     <div className="mx-auto max-w-5xl">
@@ -32,28 +43,42 @@ export default async function Home() {
       <section className="border-t pt-8" style={{ borderColor: "var(--color-rule)" }}>
         <h2 className="font-serif text-xl">Browse by genre</h2>
         <ul className="mt-4 flex flex-wrap gap-2 text-sm">
-          {GENRES.map((g) => (
-            <li key={g}>
-              <Link
-                href={`/?genre=${g}`}
-                className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5"
-                style={{
-                  borderColor: "var(--color-rule)",
-                  textDecoration: "none",
-                  color: "var(--color-ink-soft)",
-                }}
-              >
-                <GenreDot genre={g} />
-                {GENRE_LABELS[g]}
-              </Link>
-            </li>
-          ))}
+          {GENRES.map((g) => {
+            const isActive = activeGenre === g;
+            return (
+              <li key={g}>
+                <Link
+                  href={isActive ? "/" : `/?genre=${g}`}
+                  className="inline-flex items-center gap-2 rounded-full border px-3 py-1.5"
+                  style={{
+                    borderColor: isActive
+                      ? "var(--color-ink)"
+                      : "var(--color-rule)",
+                    backgroundColor: isActive
+                      ? "var(--color-ink)"
+                      : "transparent",
+                    textDecoration: "none",
+                    color: isActive
+                      ? "var(--color-paper)"
+                      : "var(--color-ink-soft)",
+                  }}
+                >
+                  <GenreDot genre={g} />
+                  {GENRE_LABELS[g]}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </section>
 
       <section className="mt-12 border-t pt-8" style={{ borderColor: "var(--color-rule)" }}>
         <div className="flex flex-wrap items-baseline justify-between gap-4">
-          <h2 className="font-serif text-xl">Recently archived</h2>
+          <h2 className="font-serif text-xl">
+            {activeGenre
+              ? `Recently archived in ${GENRE_LABELS[activeGenre]}`
+              : "Recently archived"}
+          </h2>
           <Link href="/submit" className="text-sm">Contribute a story &rarr;</Link>
         </div>
 
@@ -62,8 +87,17 @@ export default async function Home() {
             className="mt-8 text-base"
             style={{ color: "var(--color-ink-soft)" }}
           >
-            The archive is just opening. Be the first to{" "}
-            <Link href="/submit">contribute a story</Link>.
+            {activeGenre ? (
+              <>
+                No stories in {GENRE_LABELS[activeGenre]} yet.{" "}
+                <Link href="/">See all stories</Link>.
+              </>
+            ) : (
+              <>
+                The archive is just opening. Be the first to{" "}
+                <Link href="/submit">contribute a story</Link>.
+              </>
+            )}
           </p>
         ) : (
           <ul className="mt-8 divide-y" style={{ borderColor: "var(--color-rule)" }}>
