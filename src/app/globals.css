@@ -77,6 +77,15 @@ html, body {
   text-rendering: optimizeLegibility;
 }
 
+html {
+  overflow-x: clip;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: clip;
+}
+
 ::selection {
   background: var(--color-selection);
   color: var(--color-ink);
@@ -101,6 +110,7 @@ a:hover {
   line-height: 1.75;
   color: var(--color-ink);
   max-width: 38rem;
+  overflow-wrap: anywhere;
 }
 .prose p { margin: 1em 0; }
 .prose h1, .prose h2, .prose h3 {
@@ -150,6 +160,7 @@ a:hover {
 /* ---- Form inputs (used on /submit) ---- */
 .ha-input {
   width: 100%;
+  min-width: 0;
   background: transparent;
   border: 1px solid var(--color-rule);
   border-radius: 8px;
@@ -259,10 +270,11 @@ a:hover {
   font-family: var(--font-serif);
   font-size: 2.25rem;
   font-weight: 600;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   color: var(--color-ink);
   line-height: 1.15;
   padding: 0;
+  overflow-wrap: anywhere;
 }
 .ha-title-input::placeholder {
   color: #c2bbac;
@@ -283,8 +295,9 @@ a:hover {
   line-height: 1.65;
   color: var(--color-ink);
   min-height: 22rem;
-  letter-spacing: -0.003em;
+  letter-spacing: 0;
   outline: none;
+  overflow-wrap: anywhere;
 }
 .ha-prose p { margin: 0.85em 0; }
 .ha-prose p:first-child { margin-top: 0; }
@@ -408,6 +421,7 @@ a:hover {
 .ha-bubble {
   display: inline-flex;
   align-items: center;
+  max-width: calc(100vw - 1rem);
   gap: 1px;
   padding: 4px;
   background: var(--color-ink);
@@ -454,9 +468,11 @@ a:hover {
   gap: 6px;
   padding: 0 4px 0 12px;
   min-width: 280px;
+  max-width: calc(100vw - 1.5rem);
 }
 .ha-bubble-link input {
   flex: 1;
+  min-width: 0;
   background: transparent;
   border: none;
   outline: none;
@@ -481,6 +497,7 @@ a:hover {
 .worldmap { margin-bottom: 3.5rem; }
 .worldmap-header {
   display: flex;
+  gap: 0.75rem;
   justify-content: space-between;
   align-items: baseline;
   font-family: var(--font-serif);
@@ -495,8 +512,12 @@ a:hover {
   border-radius: 10px;
   background: var(--color-surface-soft);
   overflow: hidden;
+  touch-action: pan-x pan-y;
 }
-.worldmap-frame svg { display: block; }
+.worldmap-frame svg {
+  display: block;
+  min-height: 180px;
+}
 
 /* ---- Timeline scrubber ---- */
 .hatime {
@@ -527,6 +548,7 @@ a:hover {
   -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
   cursor: grab;
+  touch-action: pan-x;
   -webkit-mask-image: linear-gradient(
     to right,
     transparent 0,
@@ -769,6 +791,7 @@ a:hover {
   cursor: pointer;
   transition: border-color 120ms ease, background 120ms ease;
   min-width: 14rem;
+  min-height: 36px;
 }
 .ha-searchbar:hover {
   border-color: var(--color-ink-soft);
@@ -832,6 +855,7 @@ a:hover {
 }
 .ha-search-input {
   flex: 1;
+  min-width: 0;
   background: transparent;
   border: none;
   outline: none;
@@ -902,7 +926,8 @@ a:hover {
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-ink);
-  letter-spacing: -0.005em;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
 }
 .ha-search-result-meta {
   font-family: var(--font-serif);
@@ -954,7 +979,21 @@ a:hover {
 }
 
 @media (max-width: 640px) {
-  .ha-search-overlay { padding-top: 4rem; }
+  .ha-search-overlay {
+    align-items: stretch;
+    padding: 0.75rem;
+    padding-top: max(0.75rem, env(safe-area-inset-top));
+  }
+  .ha-search-panel {
+    width: 100%;
+    max-height: calc(100dvh - 1.5rem);
+    border-radius: 12px;
+  }
+  .ha-search-input-row {
+    gap: 0.55rem;
+    padding: 0.75rem;
+  }
+  .ha-search-input { font-size: 1rem; }
   .ha-search-foot { gap: 0.6rem; padding: 0.5rem 0.8rem; }
   .ha-search-foot > span:not(.ha-search-modes) { display: none; }
 }
@@ -987,12 +1026,63 @@ a:hover {
 
 /* ---- Mobile tweaks ---- */
 @media (max-width: 640px) {
+  .prose {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+  .prose h1 { font-size: 1.65rem; }
+  .prose h2 { font-size: 1.25rem; }
+  .prose h3 { font-size: 1.08rem; }
+
   .ha-prose {
     font-size: 1.18rem;
     min-height: 18rem;
   }
   .ha-prose h2 { font-size: 1.45rem; }
-  .ha-bubble-link { min-width: 220px; }
+  .ha-prose-foot {
+    align-items: stretch;
+  }
+  .ha-prose-imgbtn {
+    justify-content: center;
+    min-height: 42px;
+    width: 100%;
+  }
+  .ha-bubble {
+    border-radius: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .ha-bubble-link {
+    min-width: min(220px, calc(100vw - 2rem));
+    width: calc(100vw - 2rem);
+  }
+
+  .worldmap {
+    margin-bottom: 2.75rem;
+  }
+  .worldmap-header {
+    align-items: flex-start;
+    flex-direction: column;
+    font-size: 0.68rem;
+    line-height: 1.35;
+    margin-bottom: 0.55rem;
+  }
+  .worldmap-frame {
+    margin-inline: -0.25rem;
+    border-radius: 8px;
+  }
+  .worldmap-frame svg {
+    min-height: 190px;
+  }
+  .hatime {
+    margin-top: 1.1rem;
+  }
+  .hatime-frame {
+    height: 68px;
+  }
+  .hatime-help {
+    font-size: 0.68rem;
+  }
 
   .constellation-frame { grid-template-columns: 4.75rem 1fr; }
   .constellation-row {

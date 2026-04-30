@@ -66,7 +66,7 @@ export default function RootLayout({
       <body>
         <SearchProvider>
           <SiteHeader />
-          <main className="mx-auto px-5 pb-20 sm:px-6 sm:pb-24">{children}</main>
+          <main className="mx-auto px-4 pb-16 sm:px-6 sm:pb-24">{children}</main>
           <SiteFooter />
           <SearchPalette />
         </SearchProvider>
@@ -77,20 +77,20 @@ export default function RootLayout({
 
 function SiteHeader() {
   return (
-    <header className="mx-auto flex max-w-5xl flex-wrap items-baseline justify-between gap-3 px-5 pt-6 pb-8 sm:px-6 sm:pt-8 sm:pb-12">
+    <header className="mx-auto flex max-w-5xl flex-col gap-4 px-4 pt-5 pb-7 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3 sm:px-6 sm:pt-8 sm:pb-12">
       <Link
         href="/"
-        className="font-serif text-base tracking-tight no-underline sm:text-lg"
+        className="font-serif text-base no-underline sm:text-lg"
         style={{ textDecoration: "none" }}
       >
         Humanity Archived
       </Link>
       <div
-        className="flex items-center gap-3 sm:gap-5"
+        className="flex w-full flex-wrap items-center justify-between gap-x-3 gap-y-3 sm:w-auto sm:flex-nowrap sm:justify-start sm:gap-5"
         style={{ color: "var(--color-ink-soft)" }}
       >
         <SearchBar />
-        <nav className="flex gap-4 text-sm sm:gap-6">
+        <nav className="order-3 flex w-full justify-between gap-3 text-sm sm:order-none sm:w-auto sm:justify-start sm:gap-6">
           <Link href="/" style={{ textDecoration: "none" }}>Archive</Link>
           <Link href="/submit" style={{ textDecoration: "none" }}>Contribute</Link>
           <Link href="/about" style={{ textDecoration: "none" }}>About</Link>
@@ -104,7 +104,7 @@ function SiteHeader() {
 function SiteFooter() {
   return (
     <footer
-      className="mx-auto max-w-5xl px-5 pt-12 pb-10 text-sm sm:px-6 sm:pt-16 sm:pb-12"
+      className="mx-auto max-w-5xl px-4 pt-10 pb-8 text-sm sm:px-6 sm:pt-16 sm:pb-12"
       style={{ color: "var(--color-ink-soft)", borderTop: "1px solid var(--color-rule)" }}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-3">

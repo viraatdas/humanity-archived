@@ -22,7 +22,7 @@ export default async function Home({
   return (
     <div className="mx-auto max-w-5xl">
       <section className="pb-10 sm:pb-12">
-        <h1 className="font-serif text-3xl leading-tight tracking-tight sm:text-4xl md:text-5xl">
+        <h1 className="break-words font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
           The stories of being human,
           <br className="hidden sm:inline" />
           {" "}gathered in one place.
@@ -108,7 +108,7 @@ export default async function Home({
                   style={{ textDecoration: "none" }}
                 >
                   <article className="flex flex-col gap-1">
-                    <h3 className="font-serif text-lg flex items-center gap-2.5">
+                    <h3 className="flex items-start gap-2.5 font-serif text-lg">
                       <GenreDot genre={s.genre} />
                       <span>{s.title}</span>
                     </h3>
