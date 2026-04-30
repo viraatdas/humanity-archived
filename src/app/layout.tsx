@@ -66,7 +66,7 @@ export default function RootLayout({
       <body>
         <SearchProvider>
           <SiteHeader />
-          <main className="mx-auto px-5 pb-20 sm:px-6 sm:pb-24">{children}</main>
+          <main className="mx-auto px-4 pb-16 sm:px-6 sm:pb-24">{children}</main>
           <SiteFooter />
           <SearchPalette />
         </SearchProvider>
@@ -77,10 +77,10 @@ export default function RootLayout({
 
 function SiteHeader() {
   return (
-    <header className="ha-site-header mx-auto max-w-5xl px-5 pt-6 pb-8 sm:px-6 sm:pt-8 sm:pb-12">
+    <header className="ha-site-header mx-auto max-w-5xl px-4 pt-5 pb-7 sm:px-6 sm:pt-8 sm:pb-12">
       <Link
         href="/"
-        className="ha-site-brand font-serif text-base tracking-tight no-underline sm:text-lg"
+        className="ha-site-brand font-serif text-base no-underline sm:text-lg"
         style={{ textDecoration: "none" }}
       >
         Humanity Archived
@@ -106,7 +106,7 @@ function SiteHeader() {
 function SiteFooter() {
   return (
     <footer
-      className="mx-auto max-w-5xl px-5 pt-12 pb-10 text-sm sm:px-6 sm:pt-16 sm:pb-12"
+      className="mx-auto max-w-5xl px-4 pt-10 pb-8 text-sm sm:px-6 sm:pt-16 sm:pb-12"
       style={{ color: "var(--color-ink-soft)", borderTop: "1px solid var(--color-rule)" }}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-3">

@@ -14,7 +14,7 @@ export default function AboutPage() {
         >
           A Note from the Creator
         </p>
-        <h1 className="mt-4 font-serif text-3xl leading-tight tracking-tight sm:text-4xl md:text-5xl">
+        <h1 className="mt-4 break-words font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
           Stories are the currency of humans.
         </h1>
       </header>

@@ -65,7 +65,7 @@ export default async function StoryPage({
           <span>·</span>
           <span>{GENRE_LABELS[story.genre]}</span>
         </div>
-        <h1 className="mt-4 font-serif text-3xl leading-tight tracking-tight sm:text-4xl md:text-5xl">
+        <h1 className="mt-4 break-words font-serif text-3xl leading-tight sm:text-4xl md:text-5xl">
           {story.title}
         </h1>
         {story.author && story.authorVisible && (

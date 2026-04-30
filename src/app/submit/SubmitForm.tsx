@@ -129,7 +129,7 @@ export function SubmitForm() {
   if (step === "write") {
     return (
       <div className="mx-auto max-w-2xl pt-2 pb-12">
-        <div className="flex items-center justify-between text-xs uppercase tracking-widest" style={{ color: "var(--color-ink-soft)" }}>
+        <div className="flex items-center justify-between gap-4 text-xs uppercase tracking-widest" style={{ color: "var(--color-ink-soft)" }}>
           <span>Contribute</span>
           <span>1 of 2 · write</span>
         </div>
@@ -188,13 +188,13 @@ export function SubmitForm() {
   // step === "details"
   return (
     <form onSubmit={onFinalSubmit} className="mx-auto max-w-2xl space-y-7 pt-2 pb-12">
-      <div className="flex items-center justify-between text-xs uppercase tracking-widest" style={{ color: "var(--color-ink-soft)" }}>
+      <div className="flex items-center justify-between gap-4 text-xs uppercase tracking-widest" style={{ color: "var(--color-ink-soft)" }}>
         <span>Contribute</span>
         <span>2 of 2 · details</span>
       </div>
 
       <header className="pb-2">
-        <h1 className="mt-3 font-serif text-3xl leading-tight tracking-tight sm:text-4xl">
+        <h1 className="mt-3 break-words font-serif text-3xl leading-tight sm:text-4xl">
           Tell us about &ldquo;{title || "this story"}.&rdquo;
         </h1>
         <p
@@ -244,7 +244,7 @@ export function SubmitForm() {
         htmlFor="year"
         hint="Helps place the story on a timeline"
       >
-        <div className="flex gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row">
           <input
             id="year"
             type="number"
