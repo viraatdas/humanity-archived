@@ -580,6 +580,82 @@ a:hover {
   min-height: 180px;
 }
 
+/* ---- Archive browsing ---- */
+.archive-filter-chip {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+.archive-filter-chip:hover {
+  transform: translateY(-1px);
+}
+.archive-filter-chip:active {
+  transform: translateY(0);
+}
+.archive-results {
+  view-transition-name: archive-results;
+  contain: layout;
+}
+.archive-story-item {
+  animation: archive-story-in 180ms ease both;
+}
+
+@keyframes archive-story-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes archive-results-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes archive-results-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+::view-transition-old(archive-results) {
+  animation: archive-results-out 110ms ease both;
+}
+::view-transition-new(archive-results) {
+  animation: archive-results-in 190ms 35ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .archive-filter-chip,
+  .archive-story-item,
+  ::view-transition-old(archive-results),
+  ::view-transition-new(archive-results) {
+    animation: none;
+    transition: none;
+  }
+  .archive-filter-chip:hover,
+  .archive-filter-chip:active {
+    transform: none;
+  }
+}
+
 /* ---- Timeline scrubber ---- */
 .hatime {
   margin-top: 1.5rem;
