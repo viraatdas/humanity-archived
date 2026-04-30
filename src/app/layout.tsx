@@ -77,19 +77,21 @@ export default function RootLayout({
 
 function SiteHeader() {
   return (
-    <header className="mx-auto flex max-w-5xl flex-wrap items-baseline justify-between gap-3 px-5 pt-6 pb-8 sm:px-6 sm:pt-8 sm:pb-12">
+    <header className="ha-site-header mx-auto max-w-5xl px-5 pt-6 pb-8 sm:px-6 sm:pt-8 sm:pb-12">
       <Link
         href="/"
-        className="font-serif text-base tracking-tight no-underline sm:text-lg"
+        className="ha-site-brand font-serif text-base tracking-tight no-underline sm:text-lg"
         style={{ textDecoration: "none" }}
       >
         Humanity Archived
       </Link>
+      <div className="ha-site-search">
+        <SearchBar />
+      </div>
       <div
-        className="flex items-center gap-3 sm:gap-5"
+        className="ha-site-actions flex items-center gap-3 sm:gap-5"
         style={{ color: "var(--color-ink-soft)" }}
       >
-        <SearchBar />
         <nav className="flex gap-4 text-sm sm:gap-6">
           <Link href="/" style={{ textDecoration: "none" }}>Archive</Link>
           <Link href="/submit" style={{ textDecoration: "none" }}>Contribute</Link>

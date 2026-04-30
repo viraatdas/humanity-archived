@@ -1,6 +1,13 @@
 "use client";
 
-import { useMemo, useState, type CSSProperties } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 import { useRouter } from "next/navigation";
 import {
   ComposableMap,
@@ -48,13 +55,16 @@ function isPlaceable(s: Story): s is Placeable {
 
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 8;
-const ZOOM_STEP = 1.6;
+const ZOOM_STEP = 1.28;
+const DEFAULT_CENTER: [number, number] = [0, 20];
+const ZOOM_ANIMATION_MS = 180;
 
 export default function WorldMap({ stories }: { stories: Story[] }) {
   const router = useRouter();
   const [year, setYear] = useState(0);
   const [zoom, setZoom] = useState(1);
-  const [center, setCenter] = useState<[number, number]>([0, 20]);
+  const [center, setCenter] = useState<[number, number]>(DEFAULT_CENTER);
+  const zoomAnimationRef = useRef<number | null>(null);
 
   const placeable = useMemo(
     () => stories.filter(isPlaceable),
@@ -70,24 +80,74 @@ export default function WorldMap({ stories }: { stories: Story[] }) {
     return { opacity: Math.max(0.2, 1 - t), r: 4 * scale };
   }
 
-  function clampZoom(z: number) {
+  const clampZoom = useCallback((z: number) => {
     return Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, z));
+  }, []);
+
+  const stopZoomAnimation = useCallback(() => {
+    if (zoomAnimationRef.current !== null) {
+      cancelAnimationFrame(zoomAnimationRef.current);
+      zoomAnimationRef.current = null;
+    }
+  }, []);
+
+  const animateView = useCallback(
+    (targetZoom: number, targetCenter: [number, number] = center) => {
+      stopZoomAnimation();
+
+      const startZoom = zoom;
+      const startCenter = center;
+      const nextZoom = clampZoom(targetZoom);
+      const start = performance.now();
+
+      function frame(now: number) {
+        const progress = Math.min(1, (now - start) / ZOOM_ANIMATION_MS);
+        const eased = 1 - Math.pow(1 - progress, 3);
+
+        setZoom(startZoom + (nextZoom - startZoom) * eased);
+        setCenter([
+          startCenter[0] + (targetCenter[0] - startCenter[0]) * eased,
+          startCenter[1] + (targetCenter[1] - startCenter[1]) * eased,
+        ]);
+
+        if (progress < 1) {
+          zoomAnimationRef.current = requestAnimationFrame(frame);
+        } else {
+          zoomAnimationRef.current = null;
+        }
+      }
+
+      zoomAnimationRef.current = requestAnimationFrame(frame);
+    },
+    [center, clampZoom, stopZoomAnimation, zoom],
+  );
+
+  useEffect(() => {
+    return stopZoomAnimation;
+  }, [stopZoomAnimation]);
+
+  function filterZoomEvent(event: unknown) {
+    if (!(event instanceof Event)) return true;
+    if (event.type === "wheel") return true;
+    if (event.type.startsWith("touch")) return true;
+    if (event instanceof MouseEvent) return event.button === 0;
+    return true;
   }
 
   function handleMoveEnd(position: { coordinates: [number, number]; zoom: number }) {
+    stopZoomAnimation();
     setCenter(position.coordinates);
     setZoom(position.zoom);
   }
 
   function zoomIn() {
-    setZoom((z) => clampZoom(z * ZOOM_STEP));
+    animateView(zoom * ZOOM_STEP);
   }
   function zoomOut() {
-    setZoom((z) => clampZoom(z / ZOOM_STEP));
+    animateView(zoom / ZOOM_STEP);
   }
   function resetZoom() {
-    setZoom(1);
-    setCenter([0, 20]);
+    animateView(1, DEFAULT_CENTER);
   }
 
   return (
@@ -110,6 +170,7 @@ export default function WorldMap({ stories }: { stories: Story[] }) {
             center={center}
             minZoom={MIN_ZOOM}
             maxZoom={MAX_ZOOM}
+            filterZoomEvent={filterZoomEvent}
             onMoveEnd={handleMoveEnd}
           >
             <Geographies geography={TOPO_URL}>
